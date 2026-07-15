@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const problemSchema = new mongoose.Schema({
 
     title:{
@@ -8,12 +7,10 @@ const problemSchema = new mongoose.Schema({
         required:true
     },
 
-
     description:{
         type:String,
         required:true
     },
-
 
     difficulty:{
         type:String,
@@ -21,60 +18,70 @@ const problemSchema = new mongoose.Schema({
         required:true
     },
 
-
     tags:[
         {
             type:String
         }
     ],
 
+    functionName:{
+        type:String,
+        required:true
+    },
 
     starterCode:{
+
         cpp:{
-            type:String
+            type:String,
+            default:""
         },
 
         java:{
-            type:String
+            type:String,
+            default:""
         },
 
         python:{
-            type:String
+            type:String,
+            default:""
         }
-    },
 
+    },
 
     testCases:[
         {
-            input:String,
-            output:String
+            input:mongoose.Schema.Types.Mixed,
+            output:mongoose.Schema.Types.Mixed
         }
     ],
 
+    hiddenTestCases:[
+        {
+            input:mongoose.Schema.Types.Mixed,
+            output:mongoose.Schema.Types.Mixed
+        }
+    ],
 
     examples:[
         {
             input:String,
-            output:String
+            output:String,
+            explanation:String
         }
     ],
-
 
     constraints:{
         type:String
     }
-
 
 },
 {
     timestamps:true
 });
 
-
 const Problem = mongoose.model(
     "Problem",
     problemSchema
 );
-
 
 export default Problem;
