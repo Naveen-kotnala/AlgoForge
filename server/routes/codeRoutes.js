@@ -1,3 +1,4 @@
+import { runCode } from "../services/judgeService.js";
 import axios from "axios";
 import authMiddleware from "../middleware/authMiddleware.js";
 import Submission from "../models/Submission.js";
@@ -17,9 +18,9 @@ router.post("/run", async (req, res) => {
         console.log("Code:", code);
 
 
-        res.json({
-            output: "Code executed successfully 🚀"
-        });
+        const result = await runCode(language, code);
+
+res.json(result);
 
 
     } catch (error) {
