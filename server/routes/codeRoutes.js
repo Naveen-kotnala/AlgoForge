@@ -1,3 +1,4 @@
+import { executeCode } from "../services/executionService.js";
 import { runCode } from "../services/judgeService.js";
 import axios from "axios";
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -11,22 +12,17 @@ router.post("/run", async (req, res) => {
 
     try {
 
-        const { code, language } = req.body;
+        const { language, code } = req.body;
 
+        const result = await executeCode(language, code);
 
-        console.log("Language:", language);
-        console.log("Code:", code);
+        res.json(result);
 
-
-        const result = await runCode(language, code);
-
-res.json(result);
-
-
-    } catch (error) {
+    }
+    catch(error){
 
         res.status(500).json({
-            message: error.message
+            message:error.message
         });
 
     }
