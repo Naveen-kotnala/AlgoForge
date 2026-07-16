@@ -12,9 +12,9 @@ router.post("/run", async (req, res) => {
 
     try {
 
-        const { language, code } = req.body;
+        const { code, language, input } = req.body;
 
-        const result = await executeCode(language, code);
+        const result = await executeCode(language, code, input);
 
         res.json(result);
 

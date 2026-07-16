@@ -1,18 +1,9 @@
 import { spawn } from "child_process";
-
 import fs from "fs";
 import path from "path";
 import { v4 as uuid } from "uuid";
 
-function toDockerPath(windowsPath) {
-    return windowsPath
-        .replace(/\\/g, "/")
-        .replace(/^([A-Za-z]):/, (_, drive) => `/${drive.toLowerCase()}`);
-}
-
-
-
-export const executeCode = async (language, code) => {
+export const executeCode = async (language, code, input = "") => {
 
     if (language !== "cpp") {
         throw new Error("Only C++ supported currently");
@@ -26,58 +17,67 @@ export const executeCode = async (language, code) => {
         fs.mkdirSync(tempDir);
     }
 
+    // Create cpp file
     const cppFile = path.join(tempDir, `${fileName}.cpp`);
-
     fs.writeFileSync(cppFile, code);
 
-   const dockerPath = toDockerPath(tempDir);
+    // Create input file
+    const inputFile = path.join(tempDir, `${fileName}.txt`);
+    fs.writeFileSync(inputFile, input);
 
-return await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
 
-    const args = [
-        "run",
-        "--rm",
-        "--mount",
-        `type=bind,src=${tempDir},target=/app`,
-        "algoforge-cpp",
-        "sh",
-        "-c",
-        `g++ /app/${fileName}.cpp -o /app/program && /app/program`
-    ];
+        const args = [
+            "run",
+            "--rm",
+            "--mount",
+            `type=bind,src=${tempDir},target=/app`,
+            "algoforge-cpp",
+            "sh",
+            "-c",
+            `g++ /app/${fileName}.cpp -o /tmp/program && /tmp/program < /app/${fileName}.txt`
+        ];
 
-    const docker = spawn("docker", args);
+        console.log("DOCKER ARGS:");
+        console.log(args.join(" "));
 
-    let stdout = "";
-    let stderr = "";
+        const docker = spawn("docker", args);
 
-    docker.stdout.on("data", (data) => {
-        stdout += data.toString();
+        let stdout = "";
+        let stderr = "";
+
+        docker.stdout.on("data", (data) => {
+            stdout += data.toString();
+        });
+
+        docker.stderr.on("data", (data) => {
+            stderr += data.toString();
+        });
+
+        docker.on("close", (code) => {
+
+            console.log("EXIT CODE:", code);
+            console.log("STDOUT:", stdout);
+            console.log("STDERR:", stderr);
+
+            if (code === 0) {
+                resolve({
+                    success: true,
+                    output: stdout.trim()
+                });
+            } else {
+                resolve({
+                    success: false,
+                    output: stderr.trim()
+                });
+            }
+
+        });
+
+        docker.on("error", (err) => {
+            reject(err);
+        });
+
     });
-
-    docker.stderr.on("data", (data) => {
-        stderr += data.toString();
-    });
-
-    docker.on("close", (code) => {
-
-        if (code === 0) {
-            resolve({
-                success: true,
-                output: stdout
-            });
-        } else {
-            resolve({
-                success: false,
-                output: stderr
-            });
-        }
-
-    });
-
-    docker.on("error", (err) => {
-        reject(err);
-    });
-
-});
 
 };
