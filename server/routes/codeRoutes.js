@@ -1,6 +1,6 @@
+import Problem from "../models/Problem.js";
+import { generateCppWrapper } from "../services/wrapperService.js";
 import { executeCode } from "../services/executionService.js";
-import { runCode } from "../services/judgeService.js";
-import axios from "axios";
 import authMiddleware from "../middleware/authMiddleware.js";
 import Submission from "../models/Submission.js";
 import express from "express";
@@ -8,13 +8,18 @@ import express from "express";
 const router = express.Router();
 
 
+// RUN CODE
 router.post("/run", async (req, res) => {
 
     try {
 
         const { code, language, input } = req.body;
 
-        const result = await executeCode(language, code, input);
+        const result = await executeCode(
+            language,
+            code,
+            input
+        );
 
         res.json(result);
 
@@ -30,48 +35,150 @@ router.post("/run", async (req, res) => {
 });
 
 
-// Submit Route
-router.post("/submit",authMiddleware, async (req, res) => {
 
-    try {
+
+// SUBMIT CODE
+router.post("/submit", authMiddleware, async (req,res)=>{
+
+
+    try{
+
 
         const { code, language, problemId } = req.body;
 
 
 
-console.log("Creating submission:");
-console.log("USER ID:", req.user.id);
-console.log("PROBLEM ID:", problemId);
+        // Find Problem
+
+        const problem = await Problem.findById(problemId);
 
 
+        if(!problem){
+
+            return res.status(404).json({
+
+                message:"Problem not found"
+
+            });
+
+        }
+
+
+
+        // Take hidden testcase
+
+        const testCase = problem.hiddenTestCases[0];
+
+
+
+        // Generate LeetCode style wrapper
+
+        const wrapperCode = generateCppWrapper(
+
+            code,
+
+            problem.functionName,
+
+            testCase
+
+        );
+
+
+
+        console.log("========== WRAPPER CODE ==========");
+
+        console.log(wrapperCode);
+
+
+
+        // Execute Wrapper
+
+        const result = await executeCode(
+
+            language,
+
+            wrapperCode
+
+        );
+
+
+
+        console.log("EXECUTION RESULT:", result);
+
+
+
+        let finalStatus = "Accepted ✅";
+
+
+
+        if(
+
+            result.output.trim() !==
+
+            JSON.stringify(testCase.output).trim()
+
+        ){
+
+            finalStatus = "Wrong Answer ❌";
+
+        }
+
+
+
+
+
+        console.log("Creating submission:");
+
+        console.log("USER ID:", req.user.id);
+
+        console.log("PROBLEM ID:", problemId);
+
+
+
+
+        // Save Submission
 
         const submission = await Submission.create({
+
             userId:req.user.id,
 
             problemId,
+
             code,
+
             language,
-            status:"Accepted ✅"
+
+            status:finalStatus
 
         });
+
+
 
         console.log("SAVED:", submission);
 
 
+
         res.json({
 
-            status:"Accepted ✅",
+            status:finalStatus,
+
             message:"Solution submitted successfully",
+
             submission
 
         });
 
 
-    } catch(error) {
 
-         console.log("========== SUBMISSION ERROR ==========");
-    console.log(error);
-    console.log(error.message);
+    }
+
+    catch(error){
+
+
+        console.log("========== SUBMISSION ERROR ==========");
+
+        console.log(error);
+
 
         res.status(500).json({
 
@@ -79,67 +186,101 @@ console.log("PROBLEM ID:", problemId);
 
         });
 
+
     }
 
+
 });
+
+
+
+
+// USER SUBMISSIONS
 
 router.get(
 "/my-submissions",
 authMiddleware,
 async(req,res)=>{
 
-  try{
-
-    const submissions = await Submission.find({
-      userId:req.user.id
-    }).sort({
-      createdAt:-1
-    });
-
-       console.log(
-      "MY SUBMISSIONS:",
-      JSON.stringify(submissions,null,2)
-    );
-
-
-    res.json(submissions);
-
-
-  }
-  catch(error){
-
-    res.status(500).json({
-      message:error.message
-    });
-
-  }
-
-});
-
-// Get all submissions
-
-router.get("/submissions", async(req,res)=>{
-
     try{
 
-        const submissions = await Submission.find()
-        .populate("problemId")
-        .sort({createdAt:-1});
+
+        const submissions = await Submission.find({
+
+            userId:req.user.id
+
+        })
+        .sort({
+
+            createdAt:-1
+
+        });
+
 
 
         res.json(submissions);
 
 
+
     }
     catch(error){
 
+
         res.status(500).json({
+
             message:error.message
+
         });
+
 
     }
 
 });
+
+
+
+
+
+// ALL SUBMISSIONS
+
+router.get("/submissions", async(req,res)=>{
+
+
+    try{
+
+
+        const submissions = await Submission.find()
+
+        .populate("problemId")
+
+        .sort({
+
+            createdAt:-1
+
+        });
+
+
+
+        res.json(submissions);
+
+
+
+    }
+    catch(error){
+
+
+        res.status(500).json({
+
+            message:error.message
+
+        });
+
+
+    }
+
+
+});
+
 
 
 export default router;
