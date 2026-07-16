@@ -86,6 +86,8 @@ function CodeEditor(){
 
   const runCode = async()=>{
 
+      console.log("Run button clicked");
+
 
     try{
 
@@ -98,7 +100,7 @@ function CodeEditor(){
     input: customInput
   }
 );
-
+        console.log(res.data);
 
       setOutput(res.data.output);
 
