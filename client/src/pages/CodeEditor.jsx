@@ -21,6 +21,10 @@ function CodeEditor(){
 
   const [status,setStatus] = useState("");
 
+  const [expectedOutput, setExpectedOutput] = useState("");
+const [testInput, setTestInput] = useState("");
+const [runStatus, setRunStatus] = useState("");
+
 
 
   // Fetch Problem
@@ -97,12 +101,24 @@ function CodeEditor(){
   {
     code,
     language,
-    input: customInput
+     problemId:id
   }
 );
         console.log(res.data);
 
       setOutput(res.data.output);
+
+        setOutput(res.data.output);
+
+setExpectedOutput(res.data.expected);
+
+setTestInput(
+    JSON.stringify(res.data.input, null, 2)
+);
+
+setRunStatus(
+    res.data.verdict
+);
 
 
     }
@@ -331,42 +347,71 @@ function CodeEditor(){
 
 
 
-        <h2 className="
-        text-xl
-        font-semibold
-        mt-8
-        ">
+            <h2 className="text-xl font-semibold mt-8">
+  Example
+</h2>
 
-          Example
+{
+problem.examples?.map((example,index)=>(
 
-        </h2>
+<div
+key={index}
+className="
+bg-slate-950
+p-4
+rounded-xl
+mt-3
+space-y-4
+"
+>
 
+<p>
+<strong>Input:</strong>
+<br/>
+{example.input}
+</p>
 
+<p>
+<strong>Output:</strong>
+<br/>
+{example.output}
+</p>
 
-        <div className="
-        bg-slate-950
-        p-4
-        rounded-xl
-        mt-3
-        ">
+{
+example.explanation && (
 
+<p>
+<strong>Explanation:</strong>
+<br/>
+{example.explanation}
+</p>
 
-        Input:
-        <br/>
+)
+}
 
-        {problem.input}
+</div>
 
+))
+}
 
-        <br/><br/>
+<h2 className="text-xl font-semibold mt-8">
+  Constraints
+</h2>
 
+<div
+className="
+bg-slate-950
+rounded-xl
+p-4
+mt-3
+text-gray-300
+whitespace-pre-line
+"
+>
 
-        Output:
-        <br/>
+{problem.constraints}
 
-        {problem.output}
-
-
-        </div>
+</div>
 
 
 
@@ -569,26 +614,46 @@ function CodeEditor(){
          <div className="p-5 border-t border-slate-800">
 
   <h2 className="font-semibold mb-3">
-    Custom Input
-  </h2>
+    Testcase
+</h2>
 
-  <textarea
-    value={customInput}
-    onChange={(e)=>setCustomInput(e.target.value)}
-    placeholder="Enter custom input..."
-    className="
-    w-full
-    h-32
-    bg-slate-950
-    border
-    border-slate-800
-    rounded-xl
-    p-4
-    outline-none
-    resize-none
-    "
-  />
+<div className="bg-slate-950 rounded-xl p-4 space-y-4">
 
+    <div>
+
+        <p className="text-gray-400">Input</p>
+
+        <pre>{testInput}</pre>
+
+    </div>
+
+    <div>
+
+        <p className="text-gray-400">Expected Output</p>
+
+        <pre>{expectedOutput}</pre>
+
+    </div>
+
+    <div>
+
+        <p className="text-gray-400">Your Output</p>
+
+        <pre>{output}</pre>
+
+    </div>
+
+    <div>
+
+        <p className="font-semibold text-green-400">
+
+            {runStatus}
+
+        </p>
+
+    </div>
+
+</div>
 </div>
 
       <div className="

@@ -13,21 +13,73 @@ router.post("/run", async (req, res) => {
 
     try {
 
-        const { code, language, input } = req.body;
+        const { code, language, problemId } = req.body;
 
-        const result = await executeCode(
-            language,
+        const problem = await Problem.findById(problemId);
+
+        if (!problem) {
+
+            return res.status(404).json({
+                message: "Problem not found"
+            });
+
+        }
+
+        // First visible testcase
+        const testCase = problem.testCases[0];
+
+        // Wrapper generate
+        const wrapperCode = generateCppWrapper(
             code,
-            input
+            problem.functionName,
+            testCase
         );
 
-        res.json(result);
+        // Execute
+        const result = await executeCode(
+            language,
+            wrapperCode
+        );
+
+        if (!result.success) {
+
+            return res.json({
+                passed: false,
+                verdict: "Compilation Error ❌",
+                output: result.output,
+                expected: JSON.stringify(testCase.output),
+                input: testCase.input
+            });
+
+        }
+
+        const actual = result.output.trim();
+        const expected = JSON.stringify(testCase.output).trim();
+
+        res.json({
+
+            passed: actual === expected,
+
+            verdict:
+                actual === expected
+                    ? "Passed ✅"
+                    : "Wrong Answer ❌",
+
+            input: testCase.input,
+
+            expected,
+
+            output: actual
+
+        });
 
     }
-    catch(error){
+    catch (error) {
 
         res.status(500).json({
-            message:error.message
+
+            message: error.message
+
         });
 
     }
