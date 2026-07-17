@@ -17,13 +17,16 @@ function CodeEditor(){
 
   const [output,setOutput] = useState("");
 
-  const [customInput, setCustomInput] = useState("");
+  
 
   const [status,setStatus] = useState("");
 
   const [expectedOutput, setExpectedOutput] = useState("");
 const [testInput, setTestInput] = useState("");
 const [runStatus, setRunStatus] = useState("");
+
+const [activeTab, setActiveTab] = useState("testcase");
+
 
 
 
@@ -108,7 +111,7 @@ const [runStatus, setRunStatus] = useState("");
 
       setOutput(res.data.output);
 
-        setOutput(res.data.output);
+        
 
 setExpectedOutput(res.data.expected);
 
@@ -598,92 +601,105 @@ whitespace-pre-line
 
 
 
-      <div className="
-      p-5
-      border-t
-      border-slate-800
-      ">
+        <div className="border-t border-slate-800">
 
+    <div className="flex">
 
-      <h2 className="font-semibold">
+        <button
+            onClick={() => setActiveTab("testcase")}
+            className={`px-6 py-3 ${
+                activeTab === "testcase"
+                    ? "border-b-2 border-green-500 text-green-400"
+                    : "text-gray-400"
+            }`}
+        >
+            Testcase
+        </button>
 
-      Output
-
-      </h2>
-
-         <div className="p-5 border-t border-slate-800">
-
-  <h2 className="font-semibold mb-3">
-    Testcase
-</h2>
-
-<div className="bg-slate-950 rounded-xl p-4 space-y-4">
-
-    <div>
-
-        <p className="text-gray-400">Input</p>
-
-        <pre>{testInput}</pre>
-
-    </div>
-
-    <div>
-
-        <p className="text-gray-400">Expected Output</p>
-
-        <pre>{expectedOutput}</pre>
+        <button
+            onClick={() => setActiveTab("result")}
+            className={`px-6 py-3 ${
+                activeTab === "result"
+                    ? "border-b-2 border-green-500 text-green-400"
+                    : "text-gray-400"
+            }`}
+        >
+            Test Result
+        </button>
 
     </div>
 
-    <div>
+    <div className="p-5">
 
-        <p className="text-gray-400">Your Output</p>
+        {
+            activeTab === "testcase"
+                ?
 
-        <pre>{output}</pre>
+                <div className="space-y-5">
 
-    </div>
+                    <div>
 
-    <div>
+                        <p className="text-gray-400">
+                            Input
+                        </p>
 
-        <p className="font-semibold text-green-400">
+                        <pre>{testInput}</pre>
 
-            {runStatus}
+                    </div>
 
-        </p>
+                    <div>
+
+                        <p className="text-gray-400">
+                            Expected Output
+                        </p>
+
+                        <pre>{expectedOutput}</pre>
+
+                    </div>
+
+                </div>
+
+                :
+
+                <div className="space-y-5">
+
+                    <div>
+
+                        <p className="text-gray-400">
+                            Your Output
+                        </p>
+
+                        <pre>{output}</pre>
+
+                    </div>
+
+                    <div>
+
+                        <p className="font-semibold text-green-400">
+                            {runStatus}
+                        </p>
+
+                    </div>
+
+                </div>
+
+        }
 
     </div>
 
 </div>
-</div>
 
-      <div className="
-      bg-slate-950
-      mt-3
-      p-4
-      rounded-xl
-      text-green-400
-      ">
-
-
-      {
-        output ||
-        "Run your code to see output..."
-      }
 
 
       </div>
 
 
 
-      </div>
-
-
-
 
 
       {
 
-      status &&
+      status &&(
 
       <div className="
       p-5
@@ -694,27 +710,28 @@ whitespace-pre-line
       {status}
 
       </div>
-
-      }
-
-
-
-      </div>
-
-
-
-
-
-      </div>
-
-
-      </div>
-
-
-    </div>
-
-
   )
+
+}
+
+
+
+      </div>
+
+
+
+
+
+      </div>
+
+
+      </div>
+
+
+    
+
+
+)
 
 }
 
