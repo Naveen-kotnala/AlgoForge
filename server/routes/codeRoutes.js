@@ -65,63 +65,48 @@ router.post("/submit", authMiddleware, async (req,res)=>{
 
 
 
-        // Take hidden testcase
+         let finalStatus = "Accepted ✅";
 
-        const testCase = problem.hiddenTestCases[0];
+for (const testCase of problem.hiddenTestCases) {
 
+    // Generate Wrapper
+    const wrapperCode = generateCppWrapper(
+        code,
+        problem.functionName,
+        testCase
+    );
 
+    console.log("========== WRAPPER ==========");
+    console.log(wrapperCode);
 
-        // Generate LeetCode style wrapper
+    // Execute
+    const result = await executeCode(
+        language,
+        wrapperCode
+    );
 
-        const wrapperCode = generateCppWrapper(
+    console.log("EXECUTION RESULT:", result);
 
-            code,
+    // Compilation / Runtime Error
+    if (!result.success) {
 
-            problem.functionName,
+        finalStatus = "Compilation Error ❌";
+        break;
 
-            testCase
+    }
 
-        );
+    // Wrong Answer
+    if (
+        result.output.trim() !==
+        JSON.stringify(testCase.output).trim()
+    ) {
 
+        finalStatus = "Wrong Answer ❌";
+        break;
 
+    }
 
-        console.log("========== WRAPPER CODE ==========");
-
-        console.log(wrapperCode);
-
-
-
-        // Execute Wrapper
-
-        const result = await executeCode(
-
-            language,
-
-            wrapperCode
-
-        );
-
-
-
-        console.log("EXECUTION RESULT:", result);
-
-
-
-        let finalStatus = "Accepted ✅";
-
-
-
-        if(
-
-            result.output.trim() !==
-
-            JSON.stringify(testCase.output).trim()
-
-        ){
-
-            finalStatus = "Wrong Answer ❌";
-
-        }
+}
 
 
 
