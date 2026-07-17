@@ -3,57 +3,45 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
-
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     try {
-
       const res = await axios.post(
         "http://localhost:5000/api/users/register",
-        form
+        form,
       );
 
       alert(res.data.message);
 
       navigate("/login");
-
     } catch (error) {
-
       alert(error.response?.data?.message || "Registration Failed");
-
     }
-
   };
 
   return (
-
     <div className="min-h-screen bg-slate-950 flex justify-center items-center">
-
       <form
         onSubmit={handleSubmit}
         className="bg-slate-900 p-8 rounded-2xl w-[400px] border border-slate-800"
       >
-
-        <h1 className="text-3xl font-bold text-white mb-6">
-          Create Account
-        </h1>
+        <h1 className="text-3xl font-bold text-white mb-6">Create Account</h1>
 
         <input
           type="text"
@@ -79,9 +67,7 @@ function Signup() {
           className="w-full p-3 rounded bg-slate-800 text-white mb-6"
         />
 
-        <button
-          className="w-full bg-purple-600 py-3 rounded text-white font-semibold"
-        >
+        <button className="w-full bg-purple-600 py-3 rounded text-white font-semibold">
           Sign Up
         </button>
 
@@ -91,13 +77,9 @@ function Signup() {
             Login
           </Link>
         </p>
-
       </form>
-
     </div>
-
   );
-
 }
 
 export default Signup;

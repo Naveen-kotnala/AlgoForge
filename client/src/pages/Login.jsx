@@ -3,30 +3,27 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     try {
-
       const res = await axios.post(
         "http://localhost:5000/api/users/login",
-        form
+        form,
       );
 
       console.log("Login Response:", res.data);
@@ -34,30 +31,21 @@ function Login() {
       // Save JWT
       localStorage.setItem("token", res.data.token);
 
-      alert("Login Successful ✅");
+      alert("Login Successful ");
 
       navigate("/");
-
     } catch (error) {
-
       alert(error.response?.data?.message || "Login Failed");
-
     }
-
   };
 
   return (
-
     <div className="min-h-screen bg-slate-950 flex justify-center items-center">
-
       <form
         onSubmit={handleSubmit}
         className="bg-slate-900 p-8 rounded-2xl w-[400px] border border-slate-800"
       >
-
-        <h1 className="text-3xl font-bold text-white mb-6">
-          Login
-        </h1>
+        <h1 className="text-3xl font-bold text-white mb-6">Login</h1>
 
         <input
           type="email"
@@ -88,13 +76,9 @@ function Login() {
             Sign Up
           </Link>
         </p>
-
       </form>
-
     </div>
-
   );
-
 }
 
 export default Login;

@@ -20,7 +20,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/submissions", submissionRoutes);
 
 app.get("/", (req, res) => {
-  res.send("AlgoForge Backend Running 🚀");
+  res.send("AlgoForge Backend Running ");
 });
 
 const PORT = process.env.PORT || 5000;

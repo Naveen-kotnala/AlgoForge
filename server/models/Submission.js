@@ -1,46 +1,39 @@
 import mongoose from "mongoose";
 
+const submissionSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-const submissionSchema = new mongoose.Schema({
+    problemId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Problem",
+      required: true,
+    },
 
+    code: {
+      type: String,
+      required: true,
+    },
 
-userId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"User",
-    required:true
-},
+    language: {
+      type: String,
+      required: true,
+    },
 
-  problemId:{
-     type:mongoose.Schema.Types.ObjectId,
-  ref:"Problem",
-  required:true
+    status: {
+      type: String,
+      default: "Accepted",
+    },
   },
-
-  code:{
-    type:String,
-    required:true
+  {
+    timestamps: true,
   },
-
-  language:{
-    type:String,
-    required:true
-  },
-
-  status:{
-    type:String,
-    default:"Accepted"
-  }
-
-},
-{
-  timestamps:true
-});
-
-
-const Submission = mongoose.model(
-  "Submission",
-  submissionSchema
 );
 
+const Submission = mongoose.model("Submission", submissionSchema);
 
 export default Submission;

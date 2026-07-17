@@ -4,316 +4,178 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Editor from "@monaco-editor/react";
 
-
-function CodeEditor(){
-
+function CodeEditor() {
   const { id } = useParams();
 
   const [problem, setProblem] = useState(null);
 
-  const [code,setCode] = useState("");
+  const [code, setCode] = useState("");
 
-  const [language,setLanguage] = useState("cpp");
+  const [language, setLanguage] = useState("cpp");
 
-  const [output,setOutput] = useState("");
+  const [output, setOutput] = useState("");
 
-  
-
-  const [status,setStatus] = useState("");
+  const [status, setStatus] = useState("");
 
   const [expectedOutput, setExpectedOutput] = useState("");
-const [testInput, setTestInput] = useState("");
-const [runStatus, setRunStatus] = useState("");
+  const [testInput, setTestInput] = useState("");
+  const [runStatus, setRunStatus] = useState("");
 
-const [activeTab, setActiveTab] = useState("testcase");
-
-
-
+  const [activeTab, setActiveTab] = useState("testcase");
 
   // Fetch Problem
 
-  useEffect(()=>{
-
-    const fetchProblem = async()=>{
-
-      try{
-
-        const res = await axios.get(
-          `http://localhost:5000/api/problems/${id}`
-        );
-
+  useEffect(() => {
+    const fetchProblem = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/problems/${id}`);
 
         setProblem(res.data);
-
-
-      }
-      catch(error){
-
+      } catch (error) {
         console.log(error);
-
       }
-
     };
 
-
     fetchProblem();
-
-
-  },[id]);
-
-
-
-
+  }, [id]);
 
   // Load Template according to language
 
-  useEffect(()=>{
-
-
-    if(problem){
-
-
-      const template =
-      problem.starterCode?.[language] || "";
-
+  useEffect(() => {
+    if (problem) {
+      const template = problem.starterCode?.[language] || "";
 
       setCode(template);
-
-
     }
+  }, [language, problem]);
 
+  const runCode = async () => {
+    console.log("Run button clicked");
 
-  },[language,problem]);
-
-
-
-
-
-
-
-  const runCode = async()=>{
-
-      console.log("Run button clicked");
-
-
-    try{
-
-
-     const res = await axios.post(
-  "http://localhost:5000/api/code/run",
-  {
-    code,
-    language,
-     problemId:id
-  }
-);
-        console.log(res.data);
+    try {
+      const res = await axios.post("http://localhost:5000/api/code/run", {
+        code,
+        language,
+        problemId: id,
+      });
+      console.log(res.data);
 
       setOutput(res.data.output);
 
-        
+      setExpectedOutput(res.data.expected);
 
-setExpectedOutput(res.data.expected);
+      setTestInput(JSON.stringify(res.data.input, null, 2));
 
-setTestInput(
-    JSON.stringify(res.data.input, null, 2)
-);
-
-setRunStatus(
-    res.data.verdict
-);
-
-
-    }
-    catch(error){
-
+      setRunStatus(res.data.verdict);
+    } catch (error) {
       console.log(error);
 
       setOutput("Error running code");
-
     }
-
-
   };
 
+  const submitCode = async () => {
+    console.log("CODE BEFORE SUBMIT:", code);
 
-
-
-
-
-
-
-  const submitCode = async()=>{
-
-
-    console.log("CODE BEFORE SUBMIT:",code);
-
-
-
-    if(!code || code.trim()===""){
-
-      setStatus("Code is empty ❌");
+    if (!code || code.trim() === "") {
+      setStatus("Code is empty ");
 
       return;
-
     }
 
-
-
-
-    try{
-
-
+    try {
       const token = localStorage.getItem("token");
 
-
-
       const res = await axios.post(
-
         "http://localhost:5000/api/code/submit",
 
         {
           code,
           language,
-          problemId:id
+          problemId: id,
         },
 
         {
-          headers:{
-            Authorization:`Bearer ${token}`
-          }
-        }
-
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
-
-
 
       setStatus(res.data.status);
-
-
-
-    }
-    catch(error){
-
-
+    } catch (error) {
       console.log(error);
 
-
-      setStatus(
-        error.response?.data?.message ||
-        "Submission Failed ❌"
-      );
-
-
+      setStatus(error.response?.data?.message || "Submission Failed ");
     }
-
-
   };
 
-
-
-
-
-
-
   const fileName =
-  language==="cpp"
-  ?
-  "Solution.cpp"
-  :
-  language==="java"
-  ?
-  "Solution.java"
-  :
-  "solution.py";
+    language === "cpp"
+      ? "Solution.cpp"
+      : language === "java"
+        ? "Solution.java"
+        : "solution.py";
 
-
-
-
-
-
-
-  if(!problem){
-
-
-    return(
-
-      <div className="
+  if (!problem) {
+    return (
+      <div
+        className="
       bg-slate-950
       min-h-screen
       text-white
       flex
       justify-center
       items-center
-      ">
-
+      "
+      >
         Loading...
-
       </div>
-
-    )
-
+    );
   }
 
-
-
-
-
-
-
-  return(
-
-    <div className="
+  return (
+    <div
+      className="
    bg-slate-950
-h-screen
-text-white
-overflow-hidden
-    ">
-
-
+     h-screen
+   text-white
+    overflow-hidden
+    "
+    >
       <Navbar />
 
-
-
-      <div className="
+      <div
+        className="
       pt-24
-px-6
-h-[calc(100vh-96px)]
-      ">
-
-
-
-      <div className="
+      px-6
+      h-[calc(100vh-96px)]
+      "
+      >
+        <div
+          className="
       grid
-lg:grid-cols-2
-gap-6
-h-full
-      ">
+      lg:grid-cols-2
+      gap-6
+      h-full
+      "
+        >
+          {/* Problem */}
 
+          <div
+            className="
+         bg-slate-900
+           border
+        border-slate-800
+          rounded-2xl
+           p-6
+          overflow-y-auto
+          "
+          >
+            <h1 className="text-3xl font-bold">{problem.title}</h1>
 
-
-      {/* Problem */}
-
-
-      <div className="
-     bg-slate-900
-border
-border-slate-800
-rounded-2xl
-p-6
-overflow-y-auto
-      ">
-
-
-        <h1 className="text-3xl font-bold">
-
-          {problem.title}
-
-        </h1>
-
-
-
-        <span className="
+            <span
+              className="
         inline-block
         mt-4
         px-4
@@ -321,133 +183,96 @@ overflow-y-auto
         rounded-full
         bg-green-500/20
         text-green-400
-        ">
+        "
+            >
+              {problem.difficulty}
+            </span>
 
-          {problem.difficulty}
-
-        </span>
-
-
-
-
-        <h2 className="
+            <h2
+              className="
         text-xl
         font-semibold
         mt-8
-        ">
+        "
+            >
+              Problem Description
+            </h2>
 
-          Problem Description
-
-        </h2>
-
-
-
-        <p className="
+            <p
+              className="
         text-gray-400
         mt-3
-        ">
+        "
+            >
+              {problem.description}
+            </p>
 
-          {problem.description}
+            <h2 className="text-xl font-semibold mt-8">Example</h2>
 
-        </p>
+            {problem.examples?.map((example, index) => (
+              <div
+                key={index}
+                className="
+              bg-slate-950
+                p-4
+                rounded-xl
+                mt-3
+               space-y-4
+               "
+              >
+                <p>
+                  <strong>Input:</strong>
+                  <br />
+                  {example.input}
+                </p>
 
+                <p>
+                  <strong>Output:</strong>
+                  <br />
+                  {example.output}
+                </p>
 
+                {example.explanation && (
+                  <p>
+                    <strong>Explanation:</strong>
+                    <br />
+                    {example.explanation}
+                  </p>
+                )}
+              </div>
+            ))}
 
+            <h2 className="text-xl font-semibold mt-8">Constraints</h2>
 
-            <h2 className="text-xl font-semibold mt-8">
-  Example
-</h2>
+            <div
+              className="
+            bg-slate-950
+              rounded-xl
+              p-4
+              mt-3
+           text-gray-300
+             whitespace-pre-line
+            "
+            >
+              {problem.constraints}
+            </div>
+          </div>
 
-{
-problem.examples?.map((example,index)=>(
+          {/* Editor */}
 
-<div
-key={index}
-className="
-bg-slate-950
-p-4
-rounded-xl
-mt-3
-space-y-4
-"
->
-
-<p>
-<strong>Input:</strong>
-<br/>
-{example.input}
-</p>
-
-<p>
-<strong>Output:</strong>
-<br/>
-{example.output}
-</p>
-
-{
-example.explanation && (
-
-<p>
-<strong>Explanation:</strong>
-<br/>
-{example.explanation}
-</p>
-
-)
-}
-
-</div>
-
-))
-}
-
-<h2 className="text-xl font-semibold mt-8">
-  Constraints
-</h2>
-
-<div
-className="
-bg-slate-950
-rounded-xl
-p-4
-mt-3
-text-gray-300
-whitespace-pre-line
-"
->
-
-{problem.constraints}
-
-</div>
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-      {/* Editor */}
-
-
-      <div className="
-     bg-slate-900
-border
-border-slate-800
-rounded-2xl
-overflow-hidden
-flex
-flex-col
-      ">
-
-
-
-      <div className="
+          <div
+            className="
+        bg-slate-900
+          border
+        border-slate-800
+           rounded-2xl
+           overflow-hidden
+           flex
+           flex-col
+           "
+          >
+            <div
+              className="
       flex
       justify-between
       items-center
@@ -455,291 +280,152 @@ flex-col
       py-3
       border-b
       border-slate-800
-      ">
+      "
+            >
+              <p>{fileName}</p>
 
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="
+              bg-slate-800
+                px-3
+                py-2
+                rounded-lg
+               "
+              >
+                <option value="cpp">C++</option>
 
-        <p>
-          {fileName}
-        </p>
+                <option value="java">Java</option>
 
+                <option value="python">Python</option>
+              </select>
+            </div>
 
+            <Editor
+              height="500px"
+              language={
+                language === "cpp"
+                  ? "cpp"
+                  : language === "java"
+                    ? "java"
+                    : "python"
+              }
+              value={code}
+              onChange={(value) => {
+                setCode(value || "");
+              }}
+              theme="vs-dark"
+            />
 
-        <select
-
-        value={language}
-
-        onChange={(e)=>setLanguage(e.target.value)}
-
-        className="
-        bg-slate-800
-        px-3
-        py-2
-        rounded-lg
-        "
-
-        >
-
-
-          <option value="cpp">
-            C++
-          </option>
-
-
-          <option value="java">
-            Java
-          </option>
-
-
-          <option value="python">
-            Python
-          </option>
-
-
-        </select>
-
-
-      </div>
-
-
-
-
-
-
-
-      <Editor
-
-
-      height="500px"
-
-
-      language={
-        language==="cpp"
-        ?
-        "cpp"
-        :
-        language==="java"
-        ?
-        "java"
-        :
-        "python"
-      }
-
-
-
-      value={code}
-
-
-
-      onChange={(value)=>{
-
-        setCode(value || "");
-
-      }}
-
-
-
-      theme="vs-dark"
-
-
-
-      />
-
-
-
-
-
-
-
-      <div className="
+            <div
+              className="
       p-4
       flex
       gap-4
       border-t
       border-slate-800
-      ">
-
-
-      <button
-
-      onClick={runCode}
-
-      className="
+      "
+            >
+              <button
+                onClick={runCode}
+                className="
       bg-green-600
       px-6
       py-2
       rounded-lg
       "
+              >
+                Run
+              </button>
 
-      >
-
-      Run
-
-      </button>
-
-
-
-
-
-      <button
-
-      onClick={submitCode}
-
-      className="
+              <button
+                onClick={submitCode}
+                className="
       bg-purple-600
       px-6
       py-2
       rounded-lg
       "
+              >
+                Submit
+              </button>
+            </div>
 
-      >
+            <div className="border-t border-slate-800">
+              <div className="flex">
+                <button
+                  onClick={() => setActiveTab("testcase")}
+                  className={`px-6 py-3 ${
+                    activeTab === "testcase"
+                      ? "border-b-2 border-green-500 text-green-400"
+                      : "text-gray-400"
+                  }`}
+                >
+                  Testcase
+                </button>
 
-      Submit
+                <button
+                  onClick={() => setActiveTab("result")}
+                  className={`px-6 py-3 ${
+                    activeTab === "result"
+                      ? "border-b-2 border-green-500 text-green-400"
+                      : "text-gray-400"
+                  }`}
+                >
+                  Test Result
+                </button>
+              </div>
 
-      </button>
-
-
-
-      </div>
-
-
-
-
-
-
-
-        <div className="border-t border-slate-800">
-
-    <div className="flex">
-
-        <button
-            onClick={() => setActiveTab("testcase")}
-            className={`px-6 py-3 ${
-                activeTab === "testcase"
-                    ? "border-b-2 border-green-500 text-green-400"
-                    : "text-gray-400"
-            }`}
-        >
-            Testcase
-        </button>
-
-        <button
-            onClick={() => setActiveTab("result")}
-            className={`px-6 py-3 ${
-                activeTab === "result"
-                    ? "border-b-2 border-green-500 text-green-400"
-                    : "text-gray-400"
-            }`}
-        >
-            Test Result
-        </button>
-
-    </div>
-
-    <div className="p-5">
-
-        {
-            activeTab === "testcase"
-                ?
-
-                <div className="space-y-5">
-
+              <div className="p-5">
+                {activeTab === "testcase" ? (
+                  <div className="space-y-5">
                     <div>
+                      <p className="text-gray-400">Input</p>
 
-                        <p className="text-gray-400">
-                            Input
-                        </p>
-
-                        <pre>{testInput}</pre>
-
+                      <pre>{testInput}</pre>
                     </div>
 
                     <div>
+                      <p className="text-gray-400">Expected Output</p>
 
-                        <p className="text-gray-400">
-                            Expected Output
-                        </p>
-
-                        <pre>{expectedOutput}</pre>
-
+                      <pre>{expectedOutput}</pre>
                     </div>
-
-                </div>
-
-                :
-
-                <div className="space-y-5">
-
+                  </div>
+                ) : (
+                  <div className="space-y-5">
                     <div>
+                      <p className="text-gray-400">Your Output</p>
 
-                        <p className="text-gray-400">
-                            Your Output
-                        </p>
-
-                        <pre>{output}</pre>
-
+                      <pre>{output}</pre>
                     </div>
 
                     <div>
-
-                        <p className="font-semibold text-green-400">
-                            {runStatus}
-                        </p>
-
+                      <p className="font-semibold text-green-400">
+                        {runStatus}
+                      </p>
                     </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
 
-                </div>
-
-        }
-
-    </div>
-
-</div>
-
-
-
-      </div>
-
-
-
-
-
-      {
-
-      status &&(
-
-      <div className="
+          {status && (
+            <div
+              className="
       p-5
       text-xl
       font-bold
-      ">
-
-      {status}
-
+      "
+            >
+              {status}
+            </div>
+          )}
+        </div>
       </div>
-  )
-
+    </div>
+  );
 }
-
-
-
-      </div>
-
-
-
-
-
-      </div>
-
-
-      </div>
-
-
-    
-
-
-)
-
-}
-
 
 export default CodeEditor;

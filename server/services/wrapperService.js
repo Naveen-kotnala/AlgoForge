@@ -1,20 +1,11 @@
-export const generateCppWrapper = (
-    userCode,
-    functionName,
-    testCase
-) => {
+export const generateCppWrapper = (userCode, functionName, testCase) => {
+  const nums = JSON.stringify(testCase.input.nums)
+    .replaceAll("[", "{")
+    .replaceAll("]", "}");
 
+  const target = testCase.input.target;
 
-const nums = JSON.stringify(testCase.input.nums)
-.replaceAll("[","{")
-.replaceAll("]","}");
-
-
-const target = testCase.input.target;
-
-
-
-const wrapper = `
+  const wrapper = `
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -55,7 +46,5 @@ int main(){
 
 `;
 
-
-return wrapper;
-
+  return wrapper;
 };

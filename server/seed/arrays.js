@@ -14,8 +14,8 @@ const arrays = [
     examples: [
       {
         input: "nums = [2,7,11,15], target = 9",
-        output: "[0,1]"
-      }
+        output: "[0,1]",
+      },
     ],
 
     constraints: "2 <= nums.length <= 10^4",
@@ -36,36 +36,36 @@ public:
 
       python: `class Solution:
     def twoSum(self, nums, target):
-        pass`
+        pass`,
     },
 
     testCases: [
       {
         input: {
           nums: [2, 7, 11, 15],
-          target: 9
+          target: 9,
         },
-        output: [0, 1]
-      }
+        output: [0, 1],
+      },
     ],
 
     hiddenTestCases: [
       {
         input: {
           nums: [3, 2, 4],
-          target: 6
+          target: 6,
         },
-        output: [1, 2]
+        output: [1, 2],
       },
       {
         input: {
           nums: [3, 3],
-          target: 6
+          target: 6,
         },
-        output: [0, 1]
-      }
-    ]
-  }
+        output: [0, 1],
+      },
+    ],
+  },
 ];
 
 export default arrays;
