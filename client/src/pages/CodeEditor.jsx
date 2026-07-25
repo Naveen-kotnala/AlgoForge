@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Editor from "@monaco-editor/react";
+import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 
 function CodeEditor() {
   const { id } = useParams();
@@ -304,8 +305,8 @@ function CodeEditor() {
               </select>
             </div>
 
-            <div className="flex flex-col flex-1">
-              <div className="flex-[7] overflow-hidden">
+            <PanelGroup direction="vertical" className="flex-1">
+              <Panel defaultSize={72} minSize={35}>
                 <Editor
                   height="100%"
                   language={
@@ -321,95 +322,92 @@ function CodeEditor() {
                   options={{
                     minimap: { enabled: false },
                     fontSize: 15,
-                    fontFamily: "JetBrains Mono",
-                    scrollBeyondLastLine: false,
                     automaticLayout: true,
-                    wordWrap: "on",
-                    lineNumbers: "on",
-                    roundedSelection: false,
-                    scrollbar: {
-                      verticalScrollbarSize: 8,
-                      horizontalScrollbarSize: 8,
-                    },
+                    scrollBeyondLastLine: false,
                   }}
                 />
-              </div>
+              </Panel>
 
-              <div className="border-t border-slate-800">
-                <div className="flex items-center justify-end gap-3 px-5 py-3 border-b border-slate-800 bg-slate-900">
-                  <button
-                    onClick={runCode}
-                    className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2 rounded-lg font-medium transition-all duration-200"
-                  >
-                    Run
-                  </button>
+              <PanelResizeHandle className="h-1 bg-slate-700 hover:bg-green-500 cursor-row-resize" />
 
-                  <button
-                    onClick={submitCode}
-                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium transition-all duration-200"
-                  >
-                    Submit
-                  </button>
-                </div>
+              <Panel defaultSize={28} minSize={15}>
+                <div className="h-full flex flex-col">
+                  <div className=" sticky top-0 z-10 flex items-center justify-end gap-3 px-5 py-3 border-b border-slate-800 bg-slate-900">
+                    <button
+                      onClick={runCode}
+                      className="bg-slate-800 hover:bg-slate-700 px-5 py-2 rounded-lg"
+                    >
+                      Run
+                    </button>
 
-                <div className="h-64 overflow-y-auto p-5">
-                  <div className="bg-slate-950 rounded-lg border border-slate-800 p-4 mb-5">
-                    <div className="flex justify-between items-center">
-                      <span
-                        className={`font-bold text-lg ${
-                          runStatus === "Accepted"
-                            ? "text-green-400"
-                            : "text-red-400"
-                        }`}
-                      >
-                        {runStatus || "Not Executed"}
-                      </span>
-
-                      <span className="text-sm text-gray-400">
-                        Runtime: 12 ms
-                      </span>
-                    </div>
-
-                    <p className="text-gray-500 text-sm mt-1">Memory: 42 MB</p>
+                    <button
+                      onClick={submitCode}
+                      className="bg-green-600 hover:bg-green-700 px-5 py-2 rounded-lg"
+                    >
+                      Submit
+                    </button>
                   </div>
 
-                  <div className="space-y-5">
-                    <div>
-                      <p className="text-gray-400 mb-2">Input</p>
-                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
-                        <pre>{testInput}</pre>
+                  <div className="flex-1 overflow-auto p-5">
+                    <div className="bg-slate-950 rounded-lg border border-slate-800 p-4 mb-5">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm text-gray-400">Status</p>
+
+                          <p
+                            className={`text-xl font-bold ${
+                              runStatus === "Accepted"
+                                ? "text-green-400"
+                                : "text-red-400"
+                            }`}
+                          >
+                            {runStatus || "Not Executed"}
+                          </p>
+                        </div>
+
+                        <div className="text-right">
+                          <p className="text-sm text-gray-400">Runtime</p>
+                          <p className="text-white">12 ms</p>
+                        </div>
                       </div>
                     </div>
 
-                    <div>
-                      <p className="text-gray-400 mb-2">Expected Output</p>
-                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
-                        <pre>{expectedOutput}</pre>
-                      </div>
-                    </div>
+                    <div className="space-y-5">
+                      <div>
+                        <p className="text-gray-400 mb-2">Input</p>
 
-                    <div>
-                      <p className="text-gray-400 mb-2">Your Output</p>
-                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
-                        <pre>{output}</pre>
+                        <div className="bg-slate-950 rounded-lg p-3">
+                          <pre className="overflow-x-auto whitespace-pre-wrap">
+                            {testInput}
+                          </pre>
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="text-gray-400 mb-2">Expected Output</p>
+
+                        <div className="bg-slate-950 rounded-lg p-3">
+                          <pre className="overflow-x-auto whitespace-pre-wrap">
+                            {expectedOutput}
+                          </pre>
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="text-gray-400 mb-2">Your Output</p>
+
+                        <div className="bg-slate-950 rounded-lg p-3">
+                          <pre className="overflow-x-auto whitespace-pre-wrap">
+                            {output}
+                          </pre>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </Panel>
+            </PanelGroup>
           </div>
-          {/* {status && (
-            <div
-              className="
-             p-5
-             text-xl
-             font-bold
-            "
-            >
-              {status}
-            </div>
-          )} */}
         </div>
       </div>
     </div>
