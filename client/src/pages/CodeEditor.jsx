@@ -72,6 +72,7 @@ function CodeEditor() {
 
       setOutput("Error running code");
     }
+    setActiveTab("result");
   };
 
   const submitCode = async () => {
@@ -108,6 +109,7 @@ function CodeEditor() {
 
       setStatus(error.response?.data?.message || "Submission Failed ");
     }
+    setActiveTab("result");
   };
 
   const fileName =
@@ -147,10 +149,11 @@ function CodeEditor() {
 
       <div
         className="
-      pt-24
-      px-6
-      h-[calc(100vh-96px)]
-      "
+  h-[calc(100vh-64px)]
+  mt-16
+  px-6
+  py-4
+  "
       >
         <div
           className="
@@ -161,7 +164,6 @@ function CodeEditor() {
       "
         >
           {/* Problem */}
-
           <div
             className="
          bg-slate-900
@@ -170,6 +172,7 @@ function CodeEditor() {
           rounded-2xl
            p-6
           overflow-y-auto
+          h-full
           "
           >
             <h1 className="text-3xl font-bold">{problem.title}</h1>
@@ -257,9 +260,7 @@ function CodeEditor() {
               {problem.constraints}
             </div>
           </div>
-
           {/* Editor */}
-
           <div
             className="
         bg-slate-900
@@ -269,6 +270,7 @@ function CodeEditor() {
            overflow-hidden
            flex
            flex-col
+           h-full
            "
           >
             <div
@@ -302,126 +304,112 @@ function CodeEditor() {
               </select>
             </div>
 
-            <Editor
-              height="500px"
-              language={
-                language === "cpp"
-                  ? "cpp"
-                  : language === "java"
-                    ? "java"
-                    : "python"
-              }
-              value={code}
-              onChange={(value) => {
-                setCode(value || "");
-              }}
-              theme="vs-dark"
-            />
-
-            <div
-              className="
-      p-4
-      flex
-      gap-4
-      border-t
-      border-slate-800
-      "
-            >
-              <button
-                onClick={runCode}
-                className="
-      bg-green-600
-      px-6
-      py-2
-      rounded-lg
-      "
-              >
-                Run
-              </button>
-
-              <button
-                onClick={submitCode}
-                className="
-      bg-purple-600
-      px-6
-      py-2
-      rounded-lg
-      "
-              >
-                Submit
-              </button>
-            </div>
-
-            <div className="border-t border-slate-800">
-              <div className="flex">
-                <button
-                  onClick={() => setActiveTab("testcase")}
-                  className={`px-6 py-3 ${
-                    activeTab === "testcase"
-                      ? "border-b-2 border-green-500 text-green-400"
-                      : "text-gray-400"
-                  }`}
-                >
-                  Testcase
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("result")}
-                  className={`px-6 py-3 ${
-                    activeTab === "result"
-                      ? "border-b-2 border-green-500 text-green-400"
-                      : "text-gray-400"
-                  }`}
-                >
-                  Test Result
-                </button>
+            <div className="flex flex-col flex-1">
+              <div className="flex-[7] overflow-hidden">
+                <Editor
+                  height="100%"
+                  language={
+                    language === "cpp"
+                      ? "cpp"
+                      : language === "java"
+                        ? "java"
+                        : "python"
+                  }
+                  value={code}
+                  onChange={(value) => setCode(value || "")}
+                  theme="vs-dark"
+                  options={{
+                    minimap: { enabled: false },
+                    fontSize: 15,
+                    fontFamily: "JetBrains Mono",
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    wordWrap: "on",
+                    lineNumbers: "on",
+                    roundedSelection: false,
+                    scrollbar: {
+                      verticalScrollbarSize: 8,
+                      horizontalScrollbarSize: 8,
+                    },
+                  }}
+                />
               </div>
 
-              <div className="p-5">
-                {activeTab === "testcase" ? (
+              <div className="border-t border-slate-800">
+                <div className="flex items-center justify-end gap-3 px-5 py-3 border-b border-slate-800 bg-slate-900">
+                  <button
+                    onClick={runCode}
+                    className="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2 rounded-lg font-medium transition-all duration-200"
+                  >
+                    Run
+                  </button>
+
+                  <button
+                    onClick={submitCode}
+                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium transition-all duration-200"
+                  >
+                    Submit
+                  </button>
+                </div>
+
+                <div className="h-64 overflow-y-auto p-5">
+                  <div className="bg-slate-950 rounded-lg border border-slate-800 p-4 mb-5">
+                    <div className="flex justify-between items-center">
+                      <span
+                        className={`font-bold text-lg ${
+                          runStatus === "Accepted"
+                            ? "text-green-400"
+                            : "text-red-400"
+                        }`}
+                      >
+                        {runStatus || "Not Executed"}
+                      </span>
+
+                      <span className="text-sm text-gray-400">
+                        Runtime: 12 ms
+                      </span>
+                    </div>
+
+                    <p className="text-gray-500 text-sm mt-1">Memory: 42 MB</p>
+                  </div>
+
                   <div className="space-y-5">
                     <div>
-                      <p className="text-gray-400">Input</p>
-
-                      <pre>{testInput}</pre>
+                      <p className="text-gray-400 mb-2">Input</p>
+                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+                        <pre>{testInput}</pre>
+                      </div>
                     </div>
 
                     <div>
-                      <p className="text-gray-400">Expected Output</p>
+                      <p className="text-gray-400 mb-2">Expected Output</p>
+                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+                        <pre>{expectedOutput}</pre>
+                      </div>
+                    </div>
 
-                      <pre>{expectedOutput}</pre>
+                    <div>
+                      <p className="text-gray-400 mb-2">Your Output</p>
+                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+                        <pre>{output}</pre>
+                      </div>
                     </div>
                   </div>
-                ) : (
-                  <div className="space-y-5">
-                    <div>
-                      <p className="text-gray-400">Your Output</p>
-
-                      <pre>{output}</pre>
-                    </div>
-
-                    <div>
-                      <p className="font-semibold text-green-400">
-                        {runStatus}
-                      </p>
-                    </div>
-                  </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
-
-          {status && (
+          {/* {status && (
             <div
               className="
-      p-5
-      text-xl
-      font-bold
-      "
+             p-5
+             text-xl
+             font-bold
+            "
             >
               {status}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
