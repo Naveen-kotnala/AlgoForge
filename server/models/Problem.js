@@ -29,6 +29,25 @@ const problemSchema = new mongoose.Schema(
       required: true,
     },
 
+    // NEW FIELD
+    returnType: {
+      type: String,
+      default: "int",
+    },
+
+    // NEW FIELD
+    parameters: [
+      {
+        name: {
+          type: String,
+        },
+
+        type: {
+          type: String,
+        },
+      },
+    ],
+
     starterCode: {
       cpp: {
         type: String,

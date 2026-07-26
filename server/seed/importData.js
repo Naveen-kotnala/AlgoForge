@@ -15,6 +15,7 @@ import graph from "./graph.js";
 import dp from "./dp.js";
 import greedy from "./greedy.js";
 import math from "./math.js";
+import heap from "./heap.js";
 
 dotenv.config();
 
@@ -29,7 +30,8 @@ const problems = [
   ...graph,
   ...dp,
   ...greedy,
-  ...math
+  ...math,
+  ...heap,
 ];
 
 const importData = async () => {

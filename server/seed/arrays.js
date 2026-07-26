@@ -1594,6 +1594,227 @@ public:
       },
     ],
   },
+  // =========================
+  // Problem 16: Trapping Rain Water
+  // =========================
+
+  {
+    title: "Trapping Rain Water",
+
+    description:
+      "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+
+    difficulty: "Hard",
+
+    tags: ["Array", "Two Pointers", "Dynamic Programming", "Stack"],
+
+    functionName: "trap",
+
+    examples: [
+      {
+        input: "height = [0,1,0,2,1,0,1,3,2,1,2,1]",
+        output: "6",
+      },
+      {
+        input: "height = [4,2,0,3,2,5]",
+        output: "9",
+      },
+    ],
+
+    constraints: `1 <= height.length <= 2 * 10^4
+0 <= height[i] <= 10^5`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int trap(vector<int>& height) {
+
+    }
+};`,
+
+      java: `class Solution {
+    public int trap(int[] height) {
+
+    }
+}`,
+
+      python: `class Solution:
+    def trap(self, height):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          height: [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],
+        },
+        output: 6,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          height: [4, 2, 0, 3, 2, 5],
+        },
+        output: 9,
+      },
+      {
+        input: {
+          height: [5, 4, 1, 2],
+        },
+        output: 1,
+      },
+    ],
+  },
+
+  // =========================
+  // Problem 17: First Missing Positive
+  // =========================
+
+  {
+    title: "First Missing Positive",
+
+    description:
+      "Given an unsorted integer array nums, return the smallest missing positive integer.",
+
+    difficulty: "Hard",
+
+    tags: ["Array", "Hash Table"],
+
+    functionName: "firstMissingPositive",
+
+    examples: [
+      {
+        input: "nums = [1,2,0]",
+        output: "3",
+      },
+      {
+        input: "nums = [3,4,-1,1]",
+        output: "2",
+      },
+    ],
+
+    constraints: `1 <= nums.length <= 10^5
+-2^31 <= nums[i] <= 2^31 - 1`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+
+    }
+};`,
+
+      java: `class Solution {
+    public int firstMissingPositive(int[] nums) {
+
+    }
+}`,
+
+      python: `class Solution:
+    def firstMissingPositive(self, nums):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          nums: [1, 2, 0],
+        },
+        output: 3,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          nums: [3, 4, -1, 1],
+        },
+        output: 2,
+      },
+      {
+        input: {
+          nums: [7, 8, 9, 11, 12],
+        },
+        output: 1,
+      },
+    ],
+  },
+
+  // =========================
+  // Problem 18: Candy
+  // =========================
+
+  {
+    title: "Candy",
+
+    description:
+      "There are n children standing in a line. Each child is assigned a rating value. Give candies according to the following rules and return the minimum number of candies you need to distribute.",
+
+    difficulty: "Hard",
+
+    tags: ["Array", "Greedy"],
+
+    functionName: "candy",
+
+    examples: [
+      {
+        input: "ratings = [1,0,2]",
+        output: "5",
+      },
+      {
+        input: "ratings = [1,2,2]",
+        output: "4",
+      },
+    ],
+
+    constraints: `1 <= ratings.length <= 2 * 10^4
+0 <= ratings[i] <= 2 * 10^4`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int candy(vector<int>& ratings) {
+
+    }
+};`,
+
+      java: `class Solution {
+    public int candy(int[] ratings) {
+
+    }
+}`,
+
+      python: `class Solution:
+    def candy(self, ratings):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          ratings: [1, 0, 2],
+        },
+        output: 5,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          ratings: [1, 2, 2],
+        },
+        output: 4,
+      },
+      {
+        input: {
+          ratings: [1, 3, 4, 5, 2],
+        },
+        output: 11,
+      },
+    ],
+  },
 ];
 
 export default arrays;
