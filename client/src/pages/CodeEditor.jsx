@@ -77,11 +77,8 @@ function CodeEditor() {
   };
 
   const submitCode = async () => {
-    console.log("CODE BEFORE SUBMIT:", code);
-
-    if (!code || code.trim() === "") {
-      setStatus("Code is empty ");
-
+    if (!code.trim()) {
+      setRunStatus("Code is empty");
       return;
     }
 
@@ -90,13 +87,11 @@ function CodeEditor() {
 
       const res = await axios.post(
         "http://localhost:5000/api/code/submit",
-
         {
           code,
           language,
           problemId: id,
         },
-
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,13 +99,16 @@ function CodeEditor() {
         },
       );
 
-      setStatus(res.data.status);
+      setRunStatus(res.data.status.trim());
+      setOutput(res.data.message);
+
+      setActiveTab("result");
     } catch (error) {
       console.log(error);
 
-      setStatus(error.response?.data?.message || "Submission Failed ");
+      setRunStatus("Submission Failed");
+      setOutput(error.response?.data?.message || "Submission Failed");
     }
-    setActiveTab("result");
   };
 
   const fileName =
@@ -356,7 +354,7 @@ function CodeEditor() {
 
                           <p
                             className={`text-xl font-bold ${
-                              runStatus === "Accepted"
+                              runStatus.trim() === "Accepted"
                                 ? "text-green-400"
                                 : "text-red-400"
                             }`}
