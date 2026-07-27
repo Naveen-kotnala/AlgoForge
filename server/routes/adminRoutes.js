@@ -2,6 +2,8 @@ import express from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
 import Problem from "../models/Problem.js";
+import User from "../models/User.js";
+import Submission from "../models/Submission.js";
 
 const router = express.Router();
 
@@ -84,5 +86,94 @@ router.put(
     }
   },
 );
+
+///user
+
+router.get("/users", authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+///Delete any user
+router.delete(
+  "/user/:id",
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+
+      if (!user) {
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      await User.findByIdAndDelete(req.params.id);
+
+      res.json({
+        message: "User Deleted Successfully",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+);
+
+router.put(
+  "/user/:id/role",
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+
+      if (!user) {
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      user.role = user.role === "admin" ? "user" : "admin";
+
+      await user.save();
+
+      res.json({
+        message: "Role Updated Successfully",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+);
+
+router.get("/stats", authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const totalUsers = await User.countDocuments();
+    const totalProblems = await Problem.countDocuments();
+    const totalSubmissions = await Submission.countDocuments();
+
+    res.json({
+      totalUsers,
+      totalProblems,
+      totalSubmissions,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 
 export default router;

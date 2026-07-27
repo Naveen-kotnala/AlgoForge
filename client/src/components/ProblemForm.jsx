@@ -125,15 +125,29 @@ function ProblemForm() {
         parameters,
       };
 
-      const res = await axios.post(
-        "http://localhost:5000/api/admin/problem",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      let res;
+
+      if (id) {
+        res = await axios.put(
+          `http://localhost:5000/api/admin/problem/${id}`,
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        },
-      );
+        );
+      } else {
+        res = await axios.post(
+          "http://localhost:5000/api/admin/problem",
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+      }
 
       alert(res.data.message);
     } catch (error) {
@@ -789,7 +803,7 @@ function ProblemForm() {
         shadow-lg
         "
       >
-        💾 Save Problem
+        {id ? "💾 Update Problem" : "💾 Save Problem"}
       </button>
     </div>
   );
