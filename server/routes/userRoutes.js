@@ -4,12 +4,20 @@ import express from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
 import User from "../models/User.js";
 import Submission from "../models/Submission.js";
+import adminMiddleware from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 
 router.post("/login", loginUser);
+
+// Admin Test Route
+router.get("/admin/test", authMiddleware, adminMiddleware, (req, res) => {
+  res.json({
+    message: "Welcome Admin 🚀",
+  });
+});
 
 // Profile Route
 router.get("/profile", authMiddleware, async (req, res) => {

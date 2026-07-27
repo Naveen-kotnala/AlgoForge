@@ -6,6 +6,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -18,6 +19,7 @@ app.use("/api/problems", problemRoutes);
 app.use("/api/code", codeRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("AlgoForge Backend Running ");

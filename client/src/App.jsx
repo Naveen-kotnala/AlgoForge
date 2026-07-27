@@ -9,6 +9,9 @@ import Home from "./pages/Home";
 import Problems from "./pages/Problems";
 import CodeEditor from "./pages/CodeEditor";
 
+import AddProblem from "./pages/AddProblem";
+import AdminDashboard from "./pages/AdminDashboard";
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,11 +21,28 @@ function App() {
         <Route path="/code/:id" element={<CodeEditor />} />
         <Route path="/submissions" element={<Submissions />} />
         <Route path="/signup" element={<Signup />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/my-submissions" element={<MySubmissions />} />
-
         <Route path="/profile" element={<Profile />} />
+
+        {/* Admin */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/add-problem" element={<AddProblem />} />
+
+        <Route
+          path="/admin/problems"
+          element={<h1 className="text-white p-10">Manage Problems</h1>}
+        />
+
+        <Route
+          path="/admin/users"
+          element={<h1 className="text-white p-10">Users</h1>}
+        />
+
+        <Route
+          path="/admin/stats"
+          element={<h1 className="text-white p-10">Statistics</h1>}
+        />
       </Routes>
     </BrowserRouter>
   );
