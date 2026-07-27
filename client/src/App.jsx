@@ -11,6 +11,7 @@ import CodeEditor from "./pages/CodeEditor";
 
 import AddProblem from "./pages/AddProblem";
 import AdminDashboard from "./pages/AdminDashboard";
+import ManageProblems from "./pages/ManageProblems";
 
 function App() {
   return (
@@ -29,10 +30,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/add-problem" element={<AddProblem />} />
 
-        <Route
-          path="/admin/problems"
-          element={<h1 className="text-white p-10">Manage Problems</h1>}
-        />
+        <Route path="/admin/edit-problem/:id" element={<AddProblem />} />
 
         <Route
           path="/admin/users"
@@ -43,6 +41,8 @@ function App() {
           path="/admin/stats"
           element={<h1 className="text-white p-10">Statistics</h1>}
         />
+
+        <Route path="/admin/problems" element={<ManageProblems />} />
       </Routes>
     </BrowserRouter>
   );

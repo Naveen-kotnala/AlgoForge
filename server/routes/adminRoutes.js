@@ -21,4 +21,68 @@ router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
+// Get All Problems
+
+router.get("/problems", authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const problems = await Problem.find().sort({ createdAt: -1 });
+
+    res.json(problems);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// Delete Problem
+
+router.delete(
+  "/problem/:id",
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      await Problem.findByIdAndDelete(req.params.id);
+
+      res.json({
+        message: "Problem Deleted Successfully",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+);
+
+// Update Problem
+
+router.put(
+  "/problem/:id",
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const updatedProblem = await Problem.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        },
+      );
+
+      res.json({
+        message: "Problem Updated Successfully",
+        problem: updatedProblem,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+);
+
 export default router;

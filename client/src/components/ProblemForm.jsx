@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function ProblemForm() {
+  const { id } = useParams();
   const [title, setTitle] = useState("");
 
   const [difficulty, setDifficulty] = useState("Easy");
@@ -140,6 +142,39 @@ function ProblemForm() {
       alert(error.response?.data?.message || "Failed");
     }
   };
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProblem = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/problems/${id}`);
+
+        const p = res.data;
+
+        setTitle(p.title);
+        setDifficulty(p.difficulty);
+        setTags(p.tags.join(", "));
+        setFunctionName(p.functionName);
+        setDescription(p.description);
+        setConstraints(p.constraints);
+
+        setExamples(p.examples);
+
+        setStarterCode(p.starterCode);
+
+        setReturnType(p.returnType);
+
+        setParameters(p.parameters);
+
+        setTestCases(p.testCases);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProblem();
+  }, [id]);
 
   return (
     <div className="space-y-10 max-w-5xl mx-auto text-white">
