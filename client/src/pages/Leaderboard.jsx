@@ -88,7 +88,7 @@ function Leaderboard() {
     text-5xl
     font-extrabold
 
-    bg-gradient-to-r
+    bg-linear-to-r
     from-yellow-400
     to-orange-500
 
@@ -123,7 +123,7 @@ mt-12
           {users[1] && (
             <div
               className="
-bg-gradient-to-br
+bg-linear-to-br
 from-slate-800
 to-slate-900
 
@@ -172,7 +172,7 @@ mt-3
           {users[0] && (
             <div
               className="
-bg-gradient-to-br
+bg-linear-to-br
 from-yellow-900/40
 to-slate-900
 
@@ -240,7 +240,7 @@ text-yellow-400
           {users[2] && (
             <div
               className="
-bg-gradient-to-br
+bg-linear-to-br
 from-orange-900/30
 to-slate-900
 
