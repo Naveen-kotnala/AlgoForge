@@ -29,7 +29,9 @@ function CodeEditor() {
   useEffect(() => {
     const fetchProblem = async () => {
       try {
+        console.log("ID FROM URL:", id);
         const res = await axios.get(`http://localhost:5000/api/problems/${id}`);
+        console.log("PROBLEM DATA:", res.data);
 
         setProblem(res.data);
       } catch (error) {

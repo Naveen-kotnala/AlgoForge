@@ -29,7 +29,11 @@ function Login() {
       console.log("Login Response:", res.data);
 
       // Save JWT
+      // Save JWT
       localStorage.setItem("token", res.data.token);
+
+      // Save user details
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login Successful ");
 
@@ -43,7 +47,7 @@ function Login() {
     <div className="min-h-screen bg-slate-950 flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-slate-900 p-8 rounded-2xl w-[400px] border border-slate-800"
+        className="bg-slate-900 p-8 rounded-2xl w-100 border border-slate-800"
       >
         <h1 className="text-3xl font-bold text-white mb-6">Login</h1>
 
