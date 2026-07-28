@@ -48,8 +48,8 @@ function Stats() {
       absolute
       left-1/2
       -translate-x-1/2
-      w-[500px]
-      h-[250px]
+      w-125
+      h-62.5
       bg-purple-600/10
       blur-3xl
       rounded-full
@@ -150,7 +150,7 @@ function Stats() {
                 w-12
                 h-12
                 rounded-xl
-                bg-gradient-to-br
+                bg-linear-to-br
                 from-purple-600
                 to-cyan-400
                 flex
@@ -171,7 +171,7 @@ function Stats() {
                 className="
                 text-5xl
                 font-extrabold
-                bg-gradient-to-r
+                bg-linear-to-r
                 from-purple-400
                 to-cyan-400
                 bg-clip-text

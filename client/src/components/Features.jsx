@@ -49,8 +49,8 @@ function Features() {
       top-20
       left-1/2
       -translate-x-1/2
-      w-[500px]
-      h-[300px]
+      w-125
+      h-75
       bg-purple-600/10
       blur-3xl
       rounded-full
@@ -149,7 +149,7 @@ function Features() {
                 w-14
                 h-14
                 rounded-2xl
-                bg-gradient-to-br
+                bg-linear-to-br
                 from-purple-600
                 to-cyan-400
                 flex
