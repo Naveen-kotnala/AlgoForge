@@ -14,6 +14,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ManageProblems from "./pages/ManageProblems";
 import Users from "./pages/Users";
 import Statistics from "./pages/Statistics";
+import Leaderboard from "./pages/Leaderboard";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/admin/stats" element={<Statistics />} />
 
         <Route path="/admin/problems" element={<ManageProblems />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </BrowserRouter>
   );

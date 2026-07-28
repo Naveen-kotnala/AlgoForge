@@ -191,4 +191,13 @@ router.get("/profile", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/leaderboard", async (req, res) => {
+  const users = await User.find()
+    .select("name xp level solved streak")
+    .sort({ xp: -1 })
+    .limit(100);
+
+  res.json(users);
+});
+
 export default router;
