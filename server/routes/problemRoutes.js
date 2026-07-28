@@ -6,10 +6,35 @@ const router = express.Router();
 // Get all problems
 router.get("/", async (req, res) => {
   try {
-    const problems = await Problem.find();
+    const { difficulty, tag, search } = req.query;
+
+    let filter = {};
+
+    // Difficulty Filter
+    if (difficulty) {
+      filter.difficulty = difficulty;
+    }
+
+    // Topic Filter
+    if (tag) {
+      filter.tags = tag;
+    }
+
+    // Search Filter
+    if (search) {
+      filter.title = {
+        $regex: search,
+        $options: "i",
+      };
+    }
+
+    const problems = await Problem.find().sort({ problemNumber: 1 });
+
     res.json(problems);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 });
 

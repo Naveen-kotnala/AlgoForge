@@ -25,11 +25,24 @@ router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
 
 // Get All Problems
 
-router.get("/problems", authMiddleware, adminMiddleware, async (req, res) => {
+router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    const problems = await Problem.find().sort({ createdAt: -1 });
+    // Last problem find karo
+    const lastProblem = await Problem.findOne().sort({ problemNumber: -1 });
 
-    res.json(problems);
+    // Next number
+    const nextProblemNumber = lastProblem ? lastProblem.problemNumber + 1 : 1;
+
+    // Problem create
+    const problem = await Problem.create({
+      ...req.body,
+      problemNumber: nextProblemNumber,
+    });
+
+    res.status(201).json({
+      message: "Problem Added Successfully",
+      problem,
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -174,6 +187,17 @@ router.get("/stats", authMiddleware, adminMiddleware, async (req, res) => {
       message: error.message,
     });
   }
+});
+
+router.get("/fix-numbering", async (req, res) => {
+  const problems = await Problem.find().sort({ createdAt: 1 });
+
+  for (let i = 0; i < problems.length; i++) {
+    problems[i].problemNumber = i + 1;
+    await problems[i].save();
+  }
+
+  res.json({ message: "Numbering Updated" });
 });
 
 export default router;

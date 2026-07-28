@@ -7,6 +7,11 @@ const problemSchema = new mongoose.Schema(
       required: true,
     },
 
+    problemNumber: {
+      type: Number,
+      unique: true,
+    },
+
     description: {
       type: String,
       required: true,

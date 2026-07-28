@@ -174,18 +174,23 @@ function CodeEditor() {
           h-full
           "
           >
-            <h1 className="text-3xl font-bold">{problem.title}</h1>
+            <h1 className="text-3xl font-bold flex items-center gap-2">
+              <span className="text-gray-500 text-2xl">
+                {problem.problemNumber}.
+              </span>
+
+              <span>{problem.title}</span>
+            </h1>
 
             <span
-              className="
-        inline-block
-        mt-4
-        px-4
-        py-1
-        rounded-full
-        bg-green-500/20
-        text-green-400
-        "
+              className={`inline-block mt-2 px-4 py-1 rounded-full text-sm font-semibold
+    ${
+      problem.difficulty === "Easy"
+        ? "bg-green-500/20 text-green-400"
+        : problem.difficulty === "Medium"
+          ? "bg-yellow-500/20 text-yellow-400"
+          : "bg-red-500/20 text-red-400"
+    }`}
             >
               {problem.difficulty}
             </span>
