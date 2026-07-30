@@ -1,5 +1,11 @@
 import Problem from "../models/Problem.js";
-import { generateCppWrapper } from "../services/wrapperService.js";
+console.log("🔥 CODE ROUTES LOADED");
+// import { generateCppWrapper } from "../services/wrapperService.js";
+import {
+  generateCppWrapper,
+  generateJavaWrapper,
+  generatePythonWrapper,
+} from "../services/wrapperService.js";
 import { executeCode } from "../services/executionService.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import Submission from "../models/Submission.js";
@@ -11,6 +17,9 @@ const router = express.Router();
 router.post("/run", async (req, res) => {
   try {
     const { code, language, problemId } = req.body;
+
+    console.log("LANGUAGE:", language);
+    console.log("FIRST LINE:", code.split("\n")[0]);
 
     const problem = await Problem.findById(problemId);
 
@@ -24,11 +33,42 @@ router.post("/run", async (req, res) => {
     const testCase = problem.testCases[0];
 
     // Wrapper generate
-    const wrapperCode = generateCppWrapper(
-      code,
-      problem.functionName,
-      testCase,
-    );
+    // const wrapperCode = generateCppWrapper(
+    //   code,
+    //   problem.functionName,
+    //   testCase,
+    // );
+
+    let wrapperCode;
+
+    if (language === "cpp") {
+      wrapperCode = generateCppWrapper(
+        code,
+        problem.functionName,
+        testCase,
+        problem,
+      );
+    } else if (language === "java") {
+      wrapperCode = generateJavaWrapper(
+        code,
+        problem.functionName,
+        testCase,
+        problem,
+      );
+    } else if (language === "python") {
+      wrapperCode = generatePythonWrapper(
+        code,
+        problem.functionName,
+        testCase,
+        problem,
+      );
+      console.log("========== PYTHON WRAPPER ==========");
+      console.log(wrapperCode);
+    } else {
+      return res.status(400).json({
+        message: "Unsupported language",
+      });
+    }
 
     // Execute
     const result = await executeCode(language, wrapperCode);
@@ -43,8 +83,9 @@ router.post("/run", async (req, res) => {
       });
     }
 
-    const actual = result.output.trim();
-    const expected = JSON.stringify(testCase.output).trim();
+    const actual = result.output.trim().replace(/\s/g, "");
+
+    const expected = JSON.stringify(testCase.output).trim().replace(/\s/g, "");
 
     res.json({
       passed: actual === expected,
@@ -83,11 +124,39 @@ router.post("/submit", authMiddleware, async (req, res) => {
 
     for (const testCase of problem.hiddenTestCases) {
       // Generate Wrapper
-      const wrapperCode = generateCppWrapper(
-        code,
-        problem.functionName,
-        testCase,
-      );
+      // const wrapperCode = generateCppWrapper(
+      //   code,
+      //   problem.functionName,
+      //   testCase,
+      // );
+      let wrapperCode;
+
+      if (language === "cpp") {
+        wrapperCode = generateCppWrapper(
+          code,
+          problem.functionName,
+          testCase,
+          problem,
+        );
+      } else if (language === "java") {
+        wrapperCode = generateJavaWrapper(
+          code,
+          problem.functionName,
+          testCase,
+          problem,
+        );
+      } else if (language === "python") {
+        wrapperCode = generatePythonWrapper(
+          code,
+          problem.functionName,
+          testCase,
+          problem,
+        );
+      } else {
+        return res.status(400).json({
+          message: "Unsupported language",
+        });
+      }
 
       console.log("========== WRAPPER ==========");
       console.log(wrapperCode);
@@ -104,7 +173,10 @@ router.post("/submit", authMiddleware, async (req, res) => {
       }
 
       // Wrong Answer
-      if (result.output.trim() !== JSON.stringify(testCase.output).trim()) {
+      if (
+        result.output.trim().replace(/\s/g, "") !==
+        JSON.stringify(testCase.output).trim().replace(/\s/g, "")
+      ) {
         finalStatus = "Wrong Answer ";
         break;
       }

@@ -4,10 +4,6 @@ import path from "path";
 import { v4 as uuid } from "uuid";
 
 export const executeCode = async (language, code, input = "") => {
-  if (language !== "cpp") {
-    throw new Error("Only C++ supported currently");
-  }
-
   const fileName = uuid();
 
   const tempDir = path.join(process.cwd(), "temp");
@@ -16,30 +12,55 @@ export const executeCode = async (language, code, input = "") => {
     fs.mkdirSync(tempDir);
   }
 
-  // Create cpp file
-  const cppFile = path.join(tempDir, `${fileName}.cpp`);
-  fs.writeFileSync(cppFile, code);
+  let sourceFile = "";
+  let dockerImage = "";
+  let command = "";
 
-  // Create input file
-  const inputFile = path.join(tempDir, `${fileName}.txt`);
-  fs.writeFileSync(inputFile, input);
+  if (language === "cpp") {
+    sourceFile = `${fileName}.cpp`;
+
+    dockerImage = "algoforge-cpp";
+
+    command = `
+      g++ /app/${sourceFile} -o /tmp/program &&
+      /tmp/program < /app/input.txt
+    `;
+  } else if (language === "java") {
+    sourceFile = "Main.java";
+
+    dockerImage = "algoforge-java";
+
+    command = `
+      javac /app/Main.java &&
+      java -cp /app Main < /app/input.txt
+    `;
+  } else if (language === "python") {
+    sourceFile = `${fileName}.py`;
+
+    dockerImage = "algoforge-python";
+
+    command = `
+      python3 /app/${sourceFile} < /app/input.txt
+    `;
+  } else {
+    throw new Error("Unsupported Language");
+  }
+
+  fs.writeFileSync(path.join(tempDir, sourceFile), code);
+
+  fs.writeFileSync(path.join(tempDir, "input.txt"), input);
 
   return await new Promise((resolve, reject) => {
-    const args = [
+    const docker = spawn("docker", [
       "run",
       "--rm",
       "--mount",
       `type=bind,src=${tempDir},target=/app`,
-      "algoforge-cpp",
+      dockerImage,
       "sh",
       "-c",
-      `g++ /app/${fileName}.cpp -o /tmp/program && /tmp/program < /app/${fileName}.txt`,
-    ];
-
-    console.log("DOCKER ARGS:");
-    console.log(args.join(" "));
-
-    const docker = spawn("docker", args);
+      command,
+    ]);
 
     let stdout = "";
     let stderr = "";
@@ -53,9 +74,10 @@ export const executeCode = async (language, code, input = "") => {
     });
 
     docker.on("close", (code) => {
-      console.log("EXIT CODE:", code);
-      console.log("STDOUT:", stdout);
-      console.log("STDERR:", stderr);
+      try {
+        fs.unlinkSync(path.join(tempDir, sourceFile));
+        fs.unlinkSync(path.join(tempDir, "input.txt"));
+      } catch (e) {}
 
       if (code === 0) {
         resolve({
@@ -71,6 +93,11 @@ export const executeCode = async (language, code, input = "") => {
     });
 
     docker.on("error", (err) => {
+      try {
+        fs.unlinkSync(path.join(tempDir, sourceFile));
+        fs.unlinkSync(path.join(tempDir, "input.txt"));
+      } catch (e) {}
+
       reject(err);
     });
   });

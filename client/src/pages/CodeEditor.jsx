@@ -46,6 +46,7 @@ function CodeEditor() {
 
   useEffect(() => {
     if (problem) {
+      console.log("LOADING TEMPLATE:", language);
       const template = problem.starterCode?.[language] || "";
 
       setCode(template);
@@ -53,7 +54,12 @@ function CodeEditor() {
   }, [language, problem]);
 
   const runCode = async () => {
+    console.log("RUN LANGUAGE:", language);
     console.log("Run button clicked");
+
+    console.log("====== FRONTEND ======");
+    console.log("Language:", language);
+    console.log("First Line:", code.split("\n")[0]);
 
     try {
       const res = await axios.post("http://localhost:5000/api/code/run", {
@@ -294,18 +300,22 @@ function CodeEditor() {
 
               <select
                 value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+                onChange={(e) => {
+                  const selected = e.target.value;
+
+                  console.log("CHANGED LANGUAGE:", selected);
+
+                  setLanguage(selected);
+                }}
                 className="
-              bg-slate-800
-                px-3
-                py-2
-                rounded-lg
-               "
+    bg-slate-800
+    px-3
+    py-2
+    rounded-lg
+  "
               >
                 <option value="cpp">C++</option>
-
                 <option value="java">Java</option>
-
                 <option value="python">Python</option>
               </select>
             </div>

@@ -1,4 +1,5 @@
 import submissionRoutes from "./routes/submissionRoutes.js";
+console.log("🔥 SERVER.JS STARTED");
 import userRoutes from "./routes/userRoutes.js";
 import problemRoutes from "./routes/problemRoutes.js";
 import codeRoutes from "./routes/codeRoutes.js";

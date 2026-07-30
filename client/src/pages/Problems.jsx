@@ -182,7 +182,7 @@ function Problems() {
             {filteredProblems.map((problem, index) => (
               <div
                 key={problem._id}
-                onClick={() => navigate(`/code/${problem._id}`)}
+                onClick={() => navigate(`/problems/${problem._id}`)}
                 className="
               flex
               justify-between
@@ -263,7 +263,7 @@ function Problems() {
                   </span>
 
                   <Link
-                    to={`/code/${problem._id}`}
+                    to={`/problems/${problem._id}`}
                     onClick={(e) => e.stopPropagation()}
                     className="
                   bg-purple-600

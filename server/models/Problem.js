@@ -36,22 +36,60 @@ const problemSchema = new mongoose.Schema(
 
     // NEW FIELD
     returnType: {
-      type: String,
-      default: "int",
+      cpp: {
+        type: String,
+        default: "",
+      },
+
+      java: {
+        type: String,
+        default: "",
+      },
+
+      python: {
+        type: String,
+        default: "",
+      },
     },
 
     // NEW FIELD
-    parameters: [
-      {
-        name: {
-          type: String,
-        },
+    parameters: {
+      cpp: [
+        {
+          name: {
+            type: String,
+          },
 
-        type: {
-          type: String,
+          type: {
+            type: String,
+          },
         },
-      },
-    ],
+      ],
+
+      java: [
+        {
+          name: {
+            type: String,
+          },
+
+          type: {
+            type: String,
+          },
+        },
+      ],
+
+      python: [
+        {
+          name: {
+            type: String,
+          },
+
+          type: {
+            type: String,
+          },
+        },
+      ],
+    },
 
     starterCode: {
       cpp: {
