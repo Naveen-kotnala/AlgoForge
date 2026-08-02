@@ -11,6 +11,14 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import Submission from "../models/Submission.js";
 import express from "express";
 
+function normalizeOutput(value) {
+  return String(value)
+    .trim()
+    .replace(/^"(.*)"$/, "$1")
+    .replace(/\s/g, "")
+    .toLowerCase();
+}
+
 const router = express.Router();
 
 // RUN CODE
@@ -83,9 +91,9 @@ router.post("/run", async (req, res) => {
       });
     }
 
-    const actual = result.output.trim().replace(/\s/g, "");
+    const actual = normalizeOutput(result.output);
 
-    const expected = JSON.stringify(testCase.output).trim().replace(/\s/g, "");
+    const expected = normalizeOutput(JSON.stringify(testCase.output));
 
     res.json({
       passed: actual === expected,
@@ -174,8 +182,8 @@ router.post("/submit", authMiddleware, async (req, res) => {
 
       // Wrong Answer
       if (
-        result.output.trim().replace(/\s/g, "") !==
-        JSON.stringify(testCase.output).trim().replace(/\s/g, "")
+        normalizeOutput(result.output) !==
+        normalizeOutput(JSON.stringify(testCase.output))
       ) {
         finalStatus = "Wrong Answer ";
         break;

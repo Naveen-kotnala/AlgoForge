@@ -4,10 +4,14 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Submissions from "./pages/Submissions";
+import Discuss from "./pages/Discuss";
+import DiscussionDetail from "./pages/DiscussionDetail";
+import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import Problems from "./pages/Problems";
 import CodeEditor from "./pages/CodeEditor";
+import CreateDiscussion from "./pages/CreateDiscussion";
 
 import AddProblem from "./pages/AddProblem";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -19,6 +23,7 @@ import Leaderboard from "./pages/Leaderboard";
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/problems" element={<Problems />} />
@@ -42,6 +47,11 @@ function App() {
 
         <Route path="/admin/problems" element={<ManageProblems />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/discuss" element={<Discuss />} />
+
+        <Route path="/discuss" element={<Discuss />} />
+        <Route path="/discuss/:id" element={<DiscussionDetail />} />
+        <Route path="/create-discussion" element={<CreateDiscussion />} />
       </Routes>
     </BrowserRouter>
   );
