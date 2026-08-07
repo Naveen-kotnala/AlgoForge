@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Profile from "./pages/Profile";
 import MySubmissions from "./pages/MySubmissions";
 import Login from "./pages/Login";
@@ -19,8 +20,18 @@ import ManageProblems from "./pages/ManageProblems";
 import Users from "./pages/Users";
 import Statistics from "./pages/Statistics";
 import Leaderboard from "./pages/Leaderboard";
+import Settings from "./pages/Settings";
 
 function App() {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
   return (
     <BrowserRouter>
       <Navbar />
@@ -34,6 +45,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/my-submissions" element={<MySubmissions />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
 
         {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />

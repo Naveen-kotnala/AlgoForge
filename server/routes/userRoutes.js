@@ -191,6 +191,43 @@ router.get("/profile", authMiddleware, async (req, res) => {
   }
 });
 
+// Get Settings
+router.get("/settings", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("settings");
+
+    res.json(user.settings);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// Update Settings
+router.put("/settings", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    user.settings = {
+      defaultLanguage: req.body.defaultLanguage,
+      editorFontSize: req.body.editorFontSize,
+      profilePublic: req.body.profilePublic,
+      theme: req.body.theme,
+    };
+
+    await user.save();
+
+    res.json({
+      message: "Settings Updated Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 router.get("/leaderboard", async (req, res) => {
   const users = await User.find()
     .select("name xp level solved streak")

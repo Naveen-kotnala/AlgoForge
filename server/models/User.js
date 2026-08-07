@@ -50,6 +50,30 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    settings: {
+      defaultLanguage: {
+        type: String,
+        enum: ["cpp", "java", "python"],
+        default: "cpp",
+      },
+
+      editorFontSize: {
+        type: Number,
+        default: 16,
+      },
+
+      profilePublic: {
+        type: Boolean,
+        default: true,
+      },
+
+      theme: {
+        type: String,
+        enum: ["dark", "light"],
+        default: "dark",
+      },
+    },
   },
   {
     timestamps: true,

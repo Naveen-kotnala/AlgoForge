@@ -177,7 +177,7 @@ function ProblemsPreview() {
               text-center
               py-3
               rounded-xl
-              bg-gradient-to-r
+              bg-linear-to-r
               from-purple-600
               to-cyan-500
               text-white

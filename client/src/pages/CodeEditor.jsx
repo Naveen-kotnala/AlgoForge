@@ -24,6 +24,11 @@ function CodeEditor() {
 
   const [activeTab, setActiveTab] = useState("testcase");
 
+  const [editorSettings, setEditorSettings] = useState({
+    defaultLanguage: "cpp",
+    editorFontSize: 16,
+  });
+
   // Fetch Problem
 
   useEffect(() => {
@@ -41,6 +46,31 @@ function CodeEditor() {
 
     fetchProblem();
   }, [id]);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get(
+          "http://localhost:5000/api/users/settings",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        setEditorSettings(res.data);
+
+        setLanguage(res.data.defaultLanguage);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
 
   // Load Template according to language
 
@@ -336,7 +366,7 @@ function CodeEditor() {
                   theme="vs-dark"
                   options={{
                     minimap: { enabled: false },
-                    fontSize: 15,
+                    fontSize: editorSettings.editorFontSize,
                     automaticLayout: true,
                     scrollBeyondLastLine: false,
                   }}

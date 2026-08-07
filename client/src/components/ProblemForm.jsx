@@ -82,6 +82,7 @@ function ProblemForm() {
 
     setParameters(updated);
   };
+
   const [testCases, setTestCases] = useState([
     {
       input: "",
@@ -121,8 +122,17 @@ function ProblemForm() {
         starterCode,
         testCases,
         hiddenTestCases: [],
-        returnType,
-        parameters,
+        returnType: {
+          cpp: returnType,
+          java: "",
+          python: "",
+        },
+
+        parameters: {
+          cpp: parameters,
+          java: [],
+          python: [],
+        },
       };
 
       let res;
@@ -177,9 +187,11 @@ function ProblemForm() {
 
         setStarterCode(p.starterCode);
 
-        setReturnType(p.returnType);
+        // setReturnType(p.returnType);
+        setReturnType(p.returnType.cpp || "");
 
-        setParameters(p.parameters);
+        // setParameters(p.parameters);
+        setParameters(p.parameters.cpp || []);
 
         setTestCases(p.testCases);
       } catch (error) {

@@ -25,6 +25,19 @@ router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
 
 // Get All Problems
 
+// Get All Problems
+
+router.get("/problems", authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const problems = await Problem.find();
+    res.json(problems);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     // Last problem find karo

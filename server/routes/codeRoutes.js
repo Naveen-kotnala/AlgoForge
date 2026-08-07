@@ -1,5 +1,5 @@
 import Problem from "../models/Problem.js";
-console.log("🔥 CODE ROUTES LOADED");
+
 // import { generateCppWrapper } from "../services/wrapperService.js";
 import {
   generateCppWrapper,
