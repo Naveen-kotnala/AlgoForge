@@ -1,5 +1,4 @@
 import Problem from "../models/Problem.js";
-
 // import { generateCppWrapper } from "../services/wrapperService.js";
 import {
   generateCppWrapper,
@@ -176,6 +175,11 @@ router.post("/submit", authMiddleware, async (req, res) => {
 
       // Compilation / Runtime Error
       if (!result.success) {
+        console.log("========== COMPILATION ERROR ==========");
+        console.log("INPUT:", testCase.input);
+        console.log("WRAPPER CODE:");
+        console.log(wrapperCode);
+        console.log("EXECUTION RESULT:", result);
         finalStatus = "Compilation Error ";
         break;
       }

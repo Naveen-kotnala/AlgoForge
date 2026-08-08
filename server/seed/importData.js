@@ -34,19 +34,33 @@ const problems = [
   ...heap,
 ];
 
+console.log("Total Problems:", problems.length);
+
 const importData = async () => {
   try {
     await connectDB();
 
-    await Problem.deleteMany();
+    // Purane problems delete
+    await Problem.deleteMany({});
 
-    await Problem.insertMany(problems);
+    console.log("Old problems deleted");
 
-    console.log("Problems Imported Successfully ✅");
+    // Automatically problem numbers generate karo
+    const numberedProblems = problems.map((problem, index) => ({
+      ...problem,
+      problemNumber: index + 1,
+    }));
 
-    process.exit();
+    // Insert all problems
+    const insertedProblems = await Problem.insertMany(numberedProblems);
+
+    console.log(
+      `Problems Imported Successfully ✅ ${insertedProblems.length} problems`,
+    );
+
+    process.exit(0);
   } catch (error) {
-    console.error(error);
+    console.error("SEED ERROR:", error);
     process.exit(1);
   }
 };

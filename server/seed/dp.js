@@ -1197,6 +1197,695 @@ public:
       },
     ],
   },
+
+  {
+    title: "Decode Ways",
+
+    description:
+      "A message containing letters from A-Z can be encoded into numbers using the mapping 'A' -> '1', 'B' -> '2', ..., 'Z' -> '26'. Given a string s containing only digits, return the number of ways to decode it. A valid encoding cannot contain leading zeros or decode a number greater than 26.",
+
+    difficulty: "Medium",
+
+    tags: ["Dynamic Programming", "String", "Memoization"],
+
+    functionName: "numDecodings",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "s", type: "string" }],
+
+      java: [{ name: "s", type: "String" }],
+
+      python: [{ name: "s", type: "str" }],
+    },
+
+    examples: [
+      {
+        input: 's = "12"',
+        output: "2",
+        explanation: "The string can be decoded as 'AB' (1,2) or 'L' (12).",
+      },
+
+      {
+        input: 's = "226"',
+        output: "3",
+        explanation:
+          "The possible decodings are 'BZ' (2,26), 'VF' (22,6), and 'BBF' (2,2,6).",
+      },
+
+      {
+        input: 's = "06"',
+        output: "0",
+        explanation:
+          "A valid encoding cannot start with 0, so there are no valid decodings.",
+      },
+    ],
+
+    constraints: `1 <= s.length <= 100
+s contains only digits.
+The answer is guaranteed to fit in a 32-bit integer.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int numDecodings(string s) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int numDecodings(String s) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def numDecodings(self, s):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          s: "12",
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          s: "226",
+        },
+        output: 3,
+      },
+
+      {
+        input: {
+          s: "06",
+        },
+        output: 0,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          s: "1",
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          s: "10",
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          s: "11106",
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          s: "2101",
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          s: "27",
+        },
+        output: 1,
+      },
+    ],
+  },
+
+  {
+    title: "0/1 Knapsack",
+
+    description:
+      "Given a set of items, where each item has a weight and a value, and a knapsack with a maximum capacity W, determine the maximum total value that can be obtained by selecting items without exceeding the knapsack capacity. Each item can either be selected once or not selected at all.",
+
+    difficulty: "Medium",
+
+    tags: ["Dynamic Programming", "Array", "Knapsack"],
+
+    functionName: "knapsack",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "W", type: "int" },
+        { name: "val", type: "vector<int>" },
+        { name: "wt", type: "vector<int>" },
+      ],
+
+      java: [
+        { name: "W", type: "int" },
+        { name: "val", type: "int[]" },
+        { name: "wt", type: "int[]" },
+      ],
+
+      python: [
+        { name: "W", type: "int" },
+        { name: "val", type: "List[int]" },
+        { name: "wt", type: "List[int]" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "W = 4, val = [1,2,3], wt = [4,5,1]",
+        output: "3",
+        explanation:
+          "The item with value 3 and weight 1 can be selected. The other items cannot fit within the remaining capacity, so the maximum value is 3.",
+      },
+
+      {
+        input: "W = 3, val = [1,2,3], wt = [4,5,6]",
+        output: "0",
+        explanation:
+          "All items are heavier than the knapsack capacity, so no item can be selected.",
+      },
+
+      {
+        input: "W = 7, val = [10,20,30], wt = [1,3,4]",
+        output: "50",
+        explanation:
+          "Selecting items with weights 3 and 4 gives a total weight of 7 and a total value of 50.",
+      },
+    ],
+
+    constraints: `1 <= W <= 1000
+1 <= val.length = wt.length <= 1000
+1 <= val[i] <= 1000
+1 <= wt[i] <= 1000`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int knapsack(int W, vector<int>& val, vector<int>& wt) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int knapsack(int W, int[] val, int[] wt) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def knapsack(self, W, val, wt):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          W: 4,
+          val: [1, 2, 3],
+          wt: [4, 5, 1],
+        },
+        output: 3,
+      },
+
+      {
+        input: {
+          W: 3,
+          val: [1, 2, 3],
+          wt: [4, 5, 6],
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          W: 7,
+          val: [10, 20, 30],
+          wt: [1, 3, 4],
+        },
+        output: 50,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          W: 5,
+          val: [10, 20, 30],
+          wt: [2, 3, 4],
+        },
+        output: 40,
+      },
+
+      {
+        input: {
+          W: 10,
+          val: [60, 100, 120],
+          wt: [10, 20, 30],
+        },
+        output: 60,
+      },
+
+      {
+        input: {
+          W: 6,
+          val: [10, 20, 30, 40],
+          wt: [1, 2, 3, 4],
+        },
+        output: 70,
+      },
+
+      {
+        input: {
+          W: 0,
+          val: [10, 20],
+          wt: [1, 2],
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          W: 8,
+          val: [15, 25, 35],
+          wt: [3, 4, 5],
+        },
+        output: 50,
+      },
+    ],
+  },
+
+  {
+    title: "Maximum Product Subarray",
+
+    description:
+      "Given an integer array nums, find a contiguous subarray whose elements have the largest product and return the product. The test cases are generated so that the answer fits in a 32-bit integer.",
+
+    difficulty: "Medium",
+
+    tags: ["Dynamic Programming", "Array"],
+
+    functionName: "maxProduct",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "nums", type: "vector<int>" }],
+
+      java: [{ name: "nums", type: "int[]" }],
+
+      python: [{ name: "nums", type: "List[int]" }],
+    },
+
+    examples: [
+      {
+        input: "nums = [2,3,-2,4]",
+        output: "6",
+        explanation: "The subarray [2,3] has the largest product, which is 6.",
+      },
+
+      {
+        input: "nums = [-2,0,-1]",
+        output: "0",
+        explanation:
+          "The possible products are -2, 0, and -1. Therefore, the maximum product is 0.",
+      },
+
+      {
+        input: "nums = [-2,3,-4]",
+        output: "24",
+        explanation: "The entire subarray [-2,3,-4] has product 24.",
+      },
+    ],
+
+    constraints: `1 <= nums.length <= 2 * 10^4
+-10 <= nums[i] <= 10
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int maxProduct(int[] nums) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def maxProduct(self, nums):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          nums: [2, 3, -2, 4],
+        },
+        output: 6,
+      },
+
+      {
+        input: {
+          nums: [-2, 0, -1],
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          nums: [-2, 3, -4],
+        },
+        output: 24,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          nums: [-2],
+        },
+        output: -2,
+      },
+
+      {
+        input: {
+          nums: [0, 2],
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          nums: [-2, 3, -4],
+        },
+        output: 24,
+      },
+
+      {
+        input: {
+          nums: [2, -5, -2, -4, 3],
+        },
+        output: 24,
+      },
+
+      {
+        input: {
+          nums: [-1, -2, -3, 0],
+        },
+        output: 6,
+      },
+    ],
+  },
+
+  {
+    title: "Minimum Path Sum",
+
+    description:
+      "Given a m x n grid filled with non-negative numbers, find a path from the top-left corner to the bottom-right corner that minimizes the sum of all numbers along its path. You can only move either down or right at any point in time.",
+
+    difficulty: "Medium",
+
+    tags: ["Dynamic Programming", "Array", "Grid"],
+
+    functionName: "minPathSum",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "grid", type: "vector<vector<int>>" }],
+
+      java: [{ name: "grid", type: "int[][]" }],
+
+      python: [{ name: "grid", type: "List[List[int]]" }],
+    },
+
+    examples: [
+      {
+        input: "grid = [[1,3,1],[1,5,1],[4,2,1]]",
+        output: "7",
+        explanation: "The path 1 → 3 → 1 → 1 → 1 gives the minimum sum of 7.",
+      },
+
+      {
+        input: "grid = [[1,2,3],[4,5,6]]",
+        output: "12",
+        explanation: "The path 1 → 2 → 3 → 6 gives the minimum sum of 12.",
+      },
+
+      {
+        input: "grid = [[5]]",
+        output: "5",
+        explanation: "There is only one cell, so the minimum path sum is 5.",
+      },
+    ],
+
+    constraints: `1 <= grid.length, grid[i].length <= 200
+0 <= grid[i][j] <= 200`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int minPathSum(int[][] grid) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def minPathSum(self, grid):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          grid: [
+            [1, 3, 1],
+            [1, 5, 1],
+            [4, 2, 1],
+          ],
+        },
+        output: 7,
+      },
+
+      {
+        input: {
+          grid: [
+            [1, 2, 3],
+            [4, 5, 6],
+          ],
+        },
+        output: 12,
+      },
+
+      {
+        input: {
+          grid: [[5]],
+        },
+        output: 5,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          grid: [
+            [1, 2],
+            [1, 1],
+          ],
+        },
+        output: 3,
+      },
+
+      {
+        input: {
+          grid: [
+            [1, 2, 1],
+            [1, 1, 1],
+          ],
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          grid: [
+            [5, 1, 3],
+            [2, 8, 2],
+            [1, 1, 1],
+          ],
+        },
+        output: 10,
+      },
+
+      {
+        input: {
+          grid: [
+            [7, 1],
+            [2, 3],
+          ],
+        },
+        output: 10,
+      },
+
+      {
+        input: {
+          grid: [
+            [1, 4, 8, 2],
+            [2, 3, 1, 5],
+            [3, 2, 1, 1],
+          ],
+        },
+        output: 11,
+      },
+    ],
+  },
+
+  {
+    title: "Jump Game VI",
+
+    description:
+      "You are given a 0-indexed integer array nums and an integer k. You are initially standing at index 0. In one move, you can jump from index i to any index j such that i < j <= i + k. Return the maximum score you can get, where your score is the sum of all nums[i] for the indices you visit.",
+
+    difficulty: "Medium",
+
+    tags: ["Dynamic Programming", "Deque", "Sliding Window"],
+
+    functionName: "maxResult",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "nums", type: "vector<int>" },
+        { name: "k", type: "int" },
+      ],
+      java: [
+        { name: "nums", type: "int[]" },
+        { name: "k", type: "int" },
+      ],
+      python: [
+        { name: "nums", type: "List[int]" },
+        { name: "k", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "nums = [1,-1,-2,4,-7,3], k = 2",
+        output: "7",
+        explanation:
+          "The optimal path is 0 -> 1 -> 3 -> 5, giving a score of 1 + (-1) + 4 + 3 = 7.",
+      },
+      {
+        input: "nums = [10,-5,-2,4,0,3], k = 3",
+        output: "17",
+        explanation: "The optimal path gives the maximum possible score of 17.",
+      },
+    ],
+
+    constraints: `
+1 <= nums.length <= 10^5
+-10^4 <= nums[i] <= 10^4
+1 <= k <= nums.length - 1
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int maxResult(vector<int>& nums, int k) {
+
+    }
+};`,
+
+      java: `class Solution {
+public int maxResult(int[] nums, int k) {
+
+}
+}`,
+
+      python: `class Solution:
+    def maxResult(self, nums, k):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          nums: [1, -1, -2, 4, -7, 3],
+          k: 2,
+        },
+        output: 7,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          nums: [10, -5, -2, 4, 0, 3],
+          k: 3,
+        },
+        output: 17,
+      },
+      {
+        input: {
+          nums: [1, -1, -2, 4, -7, 3],
+          k: 1,
+        },
+        output: -2,
+      },
+      {
+        input: {
+          nums: [5],
+          k: 1,
+        },
+        output: 5,
+      },
+    ],
+  },
 ];
 
 export default dp;

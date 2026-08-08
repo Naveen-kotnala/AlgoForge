@@ -10,7 +10,17 @@ const router = express.Router();
 // Add Problem
 router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    const problem = await Problem.create(req.body);
+    // Last problem find karo
+    const lastProblem = await Problem.findOne().sort({ problemNumber: -1 });
+
+    // Next number
+    const nextProblemNumber = lastProblem ? lastProblem.problemNumber + 1 : 1;
+
+    // Problem create
+    const problem = await Problem.create({
+      ...req.body,
+      problemNumber: nextProblemNumber,
+    });
 
     res.status(201).json({
       message: "Problem Added Successfully",
@@ -31,31 +41,6 @@ router.get("/problems", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const problems = await Problem.find();
     res.json(problems);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-});
-
-router.post("/problem", authMiddleware, adminMiddleware, async (req, res) => {
-  try {
-    // Last problem find karo
-    const lastProblem = await Problem.findOne().sort({ problemNumber: -1 });
-
-    // Next number
-    const nextProblemNumber = lastProblem ? lastProblem.problemNumber + 1 : 1;
-
-    // Problem create
-    const problem = await Problem.create({
-      ...req.body,
-      problemNumber: nextProblemNumber,
-    });
-
-    res.status(201).json({
-      message: "Problem Added Successfully",
-      problem,
-    });
   } catch (error) {
     res.status(500).json({
       message: error.message,

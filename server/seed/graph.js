@@ -1367,6 +1367,570 @@ public:
       },
     ],
   },
+
+  {
+    title: "Find if Path Exists in Graph",
+
+    description:
+      "There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1. You are given the number of vertices n and an array of edges, where edges[i] = [ui, vi] represents a connection between vertex ui and vertex vi. Given a source vertex and a destination vertex, return true if there is a path from source to destination, or false otherwise.",
+
+    difficulty: "Easy",
+
+    tags: ["Graph", "DFS", "BFS"],
+
+    functionName: "validPath",
+
+    returnType: {
+      cpp: "bool",
+      java: "boolean",
+      python: "bool",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "n", type: "int" },
+        { name: "edges", type: "vector<vector<int>>" },
+        { name: "source", type: "int" },
+        { name: "destination", type: "int" },
+      ],
+
+      java: [
+        { name: "n", type: "int" },
+        { name: "edges", type: "int[][]" },
+        { name: "source", type: "int" },
+        { name: "destination", type: "int" },
+      ],
+
+      python: [
+        { name: "n", type: "int" },
+        { name: "edges", type: "List[List[int]]" },
+        { name: "source", type: "int" },
+        { name: "destination", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input:
+          "n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2",
+        output: "true",
+        explanation:
+          "There is a path from vertex 0 to vertex 2 through the graph.",
+      },
+
+      {
+        input:
+          "n = 6, edges = [[0,1],[0,2],[3,5],[5,4],[4,3]], source = 0, destination = 5",
+        output: "false",
+        explanation:
+          "Vertices 0, 1 and 2 are disconnected from vertices 3, 4 and 5.",
+      },
+
+      {
+        input: "n = 1, edges = [], source = 0, destination = 0",
+        output: "true",
+        explanation:
+          "The source and destination are the same vertex, so a path exists.",
+      },
+    ],
+
+    constraints: `1 <= n <= 2 * 10^5
+0 <= edges.length <= 2 * 10^5
+edges[i].length == 2
+0 <= ui, vi < n
+ui != vi
+0 <= source, destination < n
+There are no duplicate edges.
+The graph is undirected.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    bool validPath(
+        int n,
+        vector<vector<int>>& edges,
+        int source,
+        int destination
+    ) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    boolean validPath(
+        int n,
+        int[][] edges,
+        int source,
+        int destination
+    ) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def validPath(self, n, edges, source, destination):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          n: 3,
+          edges: [
+            [0, 1],
+            [1, 2],
+            [2, 0],
+          ],
+          source: 0,
+          destination: 2,
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          n: 6,
+          edges: [
+            [0, 1],
+            [0, 2],
+            [3, 5],
+            [5, 4],
+            [4, 3],
+          ],
+          source: 0,
+          destination: 5,
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          n: 1,
+          edges: [],
+          source: 0,
+          destination: 0,
+        },
+        output: true,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          n: 3,
+          edges: [
+            [0, 1],
+            [1, 2],
+          ],
+          source: 0,
+          destination: 2,
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          n: 4,
+          edges: [
+            [0, 1],
+            [2, 3],
+          ],
+          source: 0,
+          destination: 3,
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          n: 5,
+          edges: [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 4],
+          ],
+          source: 4,
+          destination: 0,
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          n: 5,
+          edges: [],
+          source: 1,
+          destination: 4,
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          n: 6,
+          edges: [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5],
+            [5, 0],
+          ],
+          source: 2,
+          destination: 5,
+        },
+        output: true,
+      },
+    ],
+  },
+
+  {
+    title: "Redundant Connection",
+
+    description:
+      "You are given a graph that started as a tree with n nodes labeled from 1 to n. One additional edge was added to the tree. The added edge connects two different vertices and is not an existing edge. Return the edge that can be removed so that the resulting graph is a tree. If there are multiple answers, return the edge that occurs last in the input.",
+
+    difficulty: "Medium",
+
+    tags: ["Graph", "Union Find", "DFS", "BFS"],
+
+    functionName: "findRedundantConnection",
+
+    returnType: {
+      cpp: "vector<int>",
+      java: "int[]",
+      python: "List[int]",
+    },
+
+    parameters: {
+      cpp: [{ name: "edges", type: "vector<vector<int>>" }],
+
+      java: [{ name: "edges", type: "int[][]" }],
+
+      python: [{ name: "edges", type: "List[List[int]]" }],
+    },
+
+    examples: [
+      {
+        input: "edges = [[1,2],[1,3],[2,3]]",
+        output: "[2,3]",
+        explanation:
+          "The edge [2,3] creates a cycle. Removing it leaves a valid tree.",
+      },
+
+      {
+        input: "edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]",
+        output: "[1,4]",
+        explanation:
+          "The edge [1,4] creates a cycle, so removing it makes the graph a tree.",
+      },
+
+      {
+        input: "edges = [[1,2],[2,3],[3,1]]",
+        output: "[3,1]",
+        explanation:
+          "The edge [3,1] completes a cycle, so it is the redundant connection.",
+      },
+    ],
+
+    constraints: `n == edges.length
+3 <= n <= 1000
+edges[i].length == 2
+1 <= ai < bi <= edges.length
+ai != bi
+There are no repeated edges.
+The given graph started as a tree with n nodes and one additional edge was added.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int[] findRedundantConnection(int[][] edges) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def findRedundantConnection(self, edges):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [1, 3],
+            [2, 3],
+          ],
+        },
+        output: [2, 3],
+      },
+
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [1, 4],
+            [1, 5],
+          ],
+        },
+        output: [1, 4],
+      },
+
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [2, 3],
+            [3, 1],
+          ],
+        },
+        output: [3, 1],
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 1],
+            [1, 5],
+          ],
+        },
+        output: [4, 1],
+      },
+
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5],
+            [5, 1],
+          ],
+        },
+        output: [5, 1],
+      },
+
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [1, 3],
+            [3, 4],
+            [2, 4],
+          ],
+        },
+        output: [2, 4],
+      },
+
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [2, 3],
+            [3, 5],
+            [5, 4],
+            [4, 2],
+          ],
+        },
+        output: [4, 2],
+      },
+
+      {
+        input: {
+          edges: [
+            [1, 2],
+            [2, 3],
+            [3, 1],
+            [3, 4],
+          ],
+        },
+        output: [3, 1],
+      },
+    ],
+  },
+
+  {
+    title: "Number of Provinces",
+
+    description:
+      "There are n cities. Some of them are connected, while some are not. If city a is directly connected to city b, and city b is directly connected to city c, then city a is indirectly connected to city c. A province is a group of directly or indirectly connected cities with no other cities outside the group. You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and 0 otherwise. Return the total number of provinces.",
+
+    difficulty: "Medium",
+
+    tags: ["Graph", "DFS", "BFS", "Union Find", "Matrix"],
+
+    functionName: "findCircleNum",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "isConnected", type: "vector<vector<int>>" }],
+
+      java: [{ name: "isConnected", type: "int[][]" }],
+
+      python: [{ name: "isConnected", type: "List[List[int]]" }],
+    },
+
+    examples: [
+      {
+        input: "isConnected = [[1,1,0],[1,1,0],[0,0,1]]",
+        output: "2",
+        explanation:
+          "Cities 1 and 2 form one province, while city 3 forms another province.",
+      },
+
+      {
+        input: "isConnected = [[1,0,0],[0,1,0],[0,0,1]]",
+        output: "3",
+        explanation:
+          "No cities are connected to each other, so each city forms its own province.",
+      },
+
+      {
+        input: "isConnected = [[1,1,1],[1,1,1],[1,1,1]]",
+        output: "1",
+        explanation:
+          "All three cities are directly connected, so there is only one province.",
+      },
+    ],
+
+    constraints: `1 <= n <= 200
+n == isConnected.length
+n == isConnected[i].length
+isConnected[i][j] is 1 or 0.
+isConnected[i][i] == 1.
+isConnected[i][j] == isConnected[j][i].`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int findCircleNum(int[][] isConnected) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def findCircleNum(self, isConnected):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          isConnected: [
+            [1, 1, 0],
+            [1, 1, 0],
+            [0, 0, 1],
+          ],
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          isConnected: [
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+          ],
+        },
+        output: 3,
+      },
+
+      {
+        input: {
+          isConnected: [
+            [1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1],
+          ],
+        },
+        output: 1,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          isConnected: [
+            [1, 1],
+            [1, 1],
+          ],
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          isConnected: [
+            [1, 0],
+            [0, 1],
+          ],
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          isConnected: [
+            [1, 1, 0, 0],
+            [1, 1, 0, 0],
+            [0, 0, 1, 1],
+            [0, 0, 1, 1],
+          ],
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          isConnected: [
+            [1, 1, 0, 0, 0],
+            [1, 1, 1, 0, 0],
+            [0, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1],
+            [0, 0, 0, 1, 1],
+          ],
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          isConnected: [[1]],
+        },
+        output: 1,
+      },
+    ],
+  },
 ];
 
 export default graph;

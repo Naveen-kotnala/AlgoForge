@@ -821,6 +821,329 @@ public:
       },
     ],
   },
+
+  {
+    title: "Find Smallest Letter Greater Than Target",
+
+    description:
+      "You are given a characters array letters that is sorted in non-decreasing order and a character target. There are at least two different characters in letters. Return the smallest character in letters that is lexicographically greater than target. If such a character does not exist, return the first character in letters.",
+
+    difficulty: "Easy",
+
+    tags: ["Array", "Binary Search"],
+
+    functionName: "nextGreatestLetter",
+
+    returnType: {
+      cpp: "char",
+      java: "char",
+      python: "char",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "letters", type: "vector<char>" },
+        { name: "target", type: "char" },
+      ],
+      java: [
+        { name: "letters", type: "char[]" },
+        { name: "target", type: "char" },
+      ],
+      python: [
+        { name: "letters", type: "List[str]" },
+        { name: "target", type: "str" },
+      ],
+    },
+
+    examples: [
+      {
+        input: 'letters = ["c","f","j"], target = "a"',
+        output: '"c"',
+        explanation: 'The smallest character greater than "a" is "c".',
+      },
+      {
+        input: 'letters = ["c","f","j"], target = "c"',
+        output: '"f"',
+        explanation: 'The smallest character strictly greater than "c" is "f".',
+      },
+      {
+        input: 'letters = ["x","x","y","y"], target = "z"',
+        output: '"x"',
+        explanation:
+          'There is no character greater than "z", so return the first character "x".',
+      },
+    ],
+
+    constraints: `2 <= letters.length <= 10^4
+letters consists of lowercase English letters.
+letters is sorted in non-decreasing order.
+letters contains at least two different characters.
+target is a lowercase English letter.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    char nextGreatestLetter(char[] letters, char target) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def nextGreatestLetter(self, letters, target):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          letters: ["c", "f", "j"],
+          target: "a",
+        },
+        output: "c",
+      },
+
+      {
+        input: {
+          letters: ["c", "f", "j"],
+          target: "c",
+        },
+        output: "f",
+      },
+
+      {
+        input: {
+          letters: ["x", "x", "y", "y"],
+          target: "z",
+        },
+        output: "x",
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          letters: ["c", "f", "j"],
+          target: "d",
+        },
+        output: "f",
+      },
+
+      {
+        input: {
+          letters: ["c", "f", "j"],
+          target: "j",
+        },
+        output: "c",
+      },
+
+      {
+        input: {
+          letters: ["a", "b"],
+          target: "a",
+        },
+        output: "b",
+      },
+
+      {
+        input: {
+          letters: ["a", "a", "b", "c"],
+          target: "a",
+        },
+        output: "b",
+      },
+
+      {
+        input: {
+          letters: ["a", "b", "c"],
+          target: "z",
+        },
+        output: "a",
+      },
+    ],
+  },
+
+  {
+    title: "Search a 2D Matrix II",
+
+    description:
+      "Write an efficient algorithm that searches for a target value in an m x n integer matrix. The matrix has the following properties: integers in each row are sorted in ascending order from left to right, and integers in each column are sorted in ascending order from top to bottom.",
+
+    difficulty: "Medium",
+
+    tags: ["Array", "Binary Search", "Matrix"],
+
+    functionName: "searchMatrix",
+
+    returnType: {
+      cpp: "bool",
+      java: "boolean",
+      python: "bool",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "matrix", type: "vector<vector<int>>" },
+        { name: "target", type: "int" },
+      ],
+      java: [
+        { name: "matrix", type: "int[][]" },
+        { name: "target", type: "int" },
+      ],
+      python: [
+        { name: "matrix", type: "List[List[int]]" },
+        { name: "target", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input:
+          "matrix = [[1,4,7,11],[2,5,8,12],[3,6,9,16],[10,13,14,17]], target = 5",
+        output: "true",
+        explanation: "The value 5 exists in the matrix.",
+      },
+      {
+        input:
+          "matrix = [[1,4,7,11],[2,5,8,12],[3,6,9,16],[10,13,14,17]], target = 20",
+        output: "false",
+        explanation: "The value 20 does not exist in the matrix.",
+      },
+      {
+        input: "matrix = [[1,2,3],[4,5,6],[7,8,9]], target = 8",
+        output: "true",
+        explanation: "The value 8 exists in the matrix.",
+      },
+    ],
+
+    constraints: `m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 300
+-10^9 <= matrix[i][j] <= 10^9
+All the integers in each row are sorted in ascending order.
+All the integers in each column are sorted in ascending order.
+-10^9 <= target <= 10^9`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    boolean searchMatrix(int[][] matrix, int target) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def searchMatrix(self, matrix, target):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          matrix: [
+            [1, 4, 7, 11],
+            [2, 5, 8, 12],
+            [3, 6, 9, 16],
+            [10, 13, 14, 17],
+          ],
+          target: 5,
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          matrix: [
+            [1, 4, 7, 11],
+            [2, 5, 8, 12],
+            [3, 6, 9, 16],
+            [10, 13, 14, 17],
+          ],
+          target: 20,
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          matrix: [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+          ],
+          target: 8,
+        },
+        output: true,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          matrix: [[1]],
+          target: 1,
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          matrix: [[1]],
+          target: 2,
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          matrix: [
+            [1, 4],
+            [2, 5],
+            [3, 6],
+          ],
+          target: 3,
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          matrix: [
+            [1, 4, 7],
+            [2, 5, 8],
+            [3, 6, 9],
+          ],
+          target: 10,
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          matrix: [
+            [-5, -3, 0],
+            [-2, 1, 4],
+            [2, 5, 8],
+          ],
+          target: -3,
+        },
+        output: true,
+      },
+    ],
+  },
 ];
 
 export default binarySearch;

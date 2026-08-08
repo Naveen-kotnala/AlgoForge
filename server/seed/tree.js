@@ -1176,6 +1176,536 @@ public:
       },
     ],
   },
+
+  {
+    title: "Binary Tree Zigzag Level Order Traversal",
+
+    description:
+      "Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. The first level is traversed from left to right, the next level from right to left, and so on for each level.",
+
+    difficulty: "Medium",
+
+    tags: ["Tree", "BFS", "Binary Tree", "Queue"],
+
+    functionName: "zigzagLevelOrder",
+
+    returnType: {
+      cpp: "vector<vector<int>>",
+      java: "List<List<Integer>>",
+      python: "List[List[int]]",
+    },
+
+    parameters: {
+      cpp: [{ name: "root", type: "TreeNode*" }],
+      java: [{ name: "root", type: "TreeNode" }],
+      python: [{ name: "root", type: "TreeNode" }],
+    },
+
+    examples: [
+      {
+        input: "root = [3,9,20,null,null,15,7]",
+        output: "[[3],[20,9],[15,7]]",
+        explanation:
+          "The first level is traversed left to right, the second right to left, and the third left to right.",
+      },
+      {
+        input: "root = [1]",
+        output: "[[1]]",
+        explanation: "The tree contains only one node.",
+      },
+      {
+        input: "root = []",
+        output: "[]",
+        explanation: "The tree is empty, so the traversal is empty.",
+      },
+    ],
+
+    constraints: `The number of nodes in the tree is in the range [0, 2000].
+-100 <= Node.val <= 100`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def zigzagLevelOrder(self, root):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          root: [3, 9, 20, null, null, 15, 7],
+        },
+        output: [[3], [20, 9], [15, 7]],
+      },
+
+      {
+        input: {
+          root: [1],
+        },
+        output: [[1]],
+      },
+
+      {
+        input: {
+          root: [],
+        },
+        output: [],
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          root: [1, 2, 3, 4, 5, 6, 7],
+        },
+        output: [[1], [3, 2], [4, 5, 6, 7]],
+      },
+
+      {
+        input: {
+          root: [1, 2, null, 3, null, 4],
+        },
+        output: [[1], [2], [3], [4]],
+      },
+
+      {
+        input: {
+          root: [10, 5, 15, 2, 7, 12, 20],
+        },
+        output: [[10], [15, 5], [2, 7, 12, 20]],
+      },
+
+      {
+        input: {
+          root: [1, null, 2, null, 3],
+        },
+        output: [[1], [2], [3]],
+      },
+
+      {
+        input: {
+          root: [5, 3, 8],
+        },
+        output: [[5], [8, 3]],
+      },
+    ],
+  },
+
+  {
+    title: "Kth Smallest Element in a BST",
+
+    description:
+      "Given the root of a binary search tree and an integer k, return the kth smallest value among all the nodes in the tree. The kth smallest value is the value that would appear in the kth position in the sorted order of all node values.",
+
+    difficulty: "Medium",
+
+    tags: ["Tree", "Binary Search Tree", "DFS", "Stack"],
+
+    functionName: "kthSmallest",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "root", type: "TreeNode*" },
+        { name: "k", type: "int" },
+      ],
+      java: [
+        { name: "root", type: "TreeNode" },
+        { name: "k", type: "int" },
+      ],
+      python: [
+        { name: "root", type: "TreeNode" },
+        { name: "k", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "root = [3,1,4,null,2], k = 1",
+        output: "1",
+        explanation:
+          "The values in sorted order are [1,2,3,4], so the 1st smallest value is 1.",
+      },
+      {
+        input: "root = [5,3,6,2,4,null,null,1], k = 3",
+        output: "3",
+        explanation:
+          "The values in sorted order are [1,2,3,4,5,6], so the 3rd smallest value is 3.",
+      },
+      {
+        input: "root = [2,1,3], k = 2",
+        output: "2",
+        explanation:
+          "The sorted values are [1,2,3], so the 2nd smallest value is 2.",
+      },
+    ],
+
+    constraints: `The number of nodes in the tree is n.
+1 <= k <= n <= 10^4
+0 <= Node.val <= 10^4
+All node values are unique.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int kthSmallest(TreeNode root, int k) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def kthSmallest(self, root, k):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          root: [3, 1, 4, null, 2],
+          k: 1,
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          root: [5, 3, 6, 2, 4, null, null, 1],
+          k: 3,
+        },
+        output: 3,
+      },
+
+      {
+        input: {
+          root: [2, 1, 3],
+          k: 2,
+        },
+        output: 2,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          root: [1],
+          k: 1,
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          root: [4, 2, 6, 1, 3, 5, 7],
+          k: 5,
+        },
+        output: 5,
+      },
+
+      {
+        input: {
+          root: [8, 4, 12, 2, 6, 10, 14],
+          k: 4,
+        },
+        output: 8,
+      },
+
+      {
+        input: {
+          root: [10, 5, 15, 3, 7, 12, 20],
+          k: 6,
+        },
+        output: 15,
+      },
+
+      {
+        input: {
+          root: [7, 3, 9, 1, 5, 8, 10],
+          k: 2,
+        },
+        output: 3,
+      },
+    ],
+  },
+
+  {
+    title: "Binary Tree Vertical Order Traversal",
+
+    description:
+      "Given the root of a binary tree, return the vertical order traversal of its nodes' values. For each vertical column, nodes are listed from top to bottom. Columns are ordered from left to right.",
+
+    difficulty: "Medium",
+
+    tags: ["Tree", "BFS", "Hash Table", "Binary Tree"],
+
+    functionName: "verticalOrder",
+
+    returnType: {
+      cpp: "vector<vector<int>>",
+      java: "List<List<Integer>>",
+      python: "List[List[int]]",
+    },
+
+    parameters: {
+      cpp: [{ name: "root", type: "TreeNode*" }],
+      java: [{ name: "root", type: "TreeNode" }],
+      python: [{ name: "root", type: "TreeNode" }],
+    },
+
+    examples: [
+      {
+        input: "root = [3,9,20,null,null,15,7]",
+        output: "[[9],[3,15],[20],[7]]",
+        explanation:
+          "Nodes are grouped by their vertical column. The leftmost column contains 9, followed by the column containing 3 and 15, then 20, and finally 7.",
+      },
+      {
+        input: "root = [3,9,8,4,0,1,7]",
+        output: "[[4],[9],[3,0,1],[8],[7]]",
+        explanation:
+          "Nodes having the same horizontal distance from the root belong to the same vertical column.",
+      },
+      {
+        input: "root = [1]",
+        output: "[[1]]",
+        explanation: "A single-node tree has only one vertical column.",
+      },
+    ],
+
+    constraints: `The number of nodes in the tree is in the range [0, 1000].
+-1000 <= Node.val <= 1000`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    vector<vector<int>> verticalOrder(TreeNode* root) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    List<List<Integer>> verticalOrder(TreeNode root) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def verticalOrder(self, root):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          root: [3, 9, 20, null, null, 15, 7],
+        },
+        output: [[9], [3, 15], [20], [7]],
+      },
+
+      {
+        input: {
+          root: [3, 9, 8, 4, 0, 1, 7],
+        },
+        output: [[4], [9], [3, 0, 1], [8], [7]],
+      },
+
+      {
+        input: {
+          root: [1],
+        },
+        output: [[1]],
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          root: [],
+        },
+        output: [],
+      },
+
+      {
+        input: {
+          root: [1, 2, 3],
+        },
+        output: [[2], [1], [3]],
+      },
+
+      {
+        input: {
+          root: [1, 2, 3, 4, 5, 6, 7],
+        },
+        output: [[4], [2], [1, 5, 6], [3], [7]],
+      },
+
+      {
+        input: {
+          root: [10, 5, 15, 2, 7, 12, 20],
+        },
+        output: [[2], [5], [10, 7, 12], [15], [20]],
+      },
+
+      {
+        input: {
+          root: [1, null, 2, null, 3, null, 4],
+        },
+        output: [[1], [2], [3], [4]],
+      },
+    ],
+  },
+
+  {
+    title: "Flatten Binary Tree to Linked List",
+
+    description:
+      "Given the root of a binary tree, flatten the tree into a linked list in-place. The linked list should use the same TreeNode nodes, where the right child points to the next node and the left child is always null. The nodes should follow the same order as a preorder traversal of the binary tree.",
+
+    difficulty: "Medium",
+
+    tags: ["Tree", "DFS", "Binary Tree", "Linked List", "Stack"],
+
+    functionName: "flatten",
+
+    returnType: {
+      cpp: "void",
+      java: "void",
+      python: "None",
+    },
+
+    parameters: {
+      cpp: [{ name: "root", type: "TreeNode*" }],
+      java: [{ name: "root", type: "TreeNode" }],
+      python: [{ name: "root", type: "TreeNode" }],
+    },
+
+    examples: [
+      {
+        input: "root = [1,2,5,3,4,null,6]",
+        output: "[1,null,2,null,3,null,4,null,5,null,6]",
+        explanation:
+          "The preorder traversal is [1,2,3,4,5,6], so the tree is flattened into that order.",
+      },
+      {
+        input: "root = []",
+        output: "[]",
+        explanation: "The tree is empty, so there is nothing to flatten.",
+      },
+      {
+        input: "root = [0]",
+        output: "[0]",
+        explanation: "A single-node tree is already a flattened linked list.",
+      },
+    ],
+
+    constraints: `The number of nodes in the tree is in the range [0, 2000].
+-100 <= Node.val <= 100`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    void flatten(TreeNode* root) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    void flatten(TreeNode root) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def flatten(self, root):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          root: [1, 2, 5, 3, 4, null, 6],
+        },
+        output: [1, null, 2, null, 3, null, 4, null, 5, null, 6],
+      },
+
+      {
+        input: {
+          root: [],
+        },
+        output: [],
+      },
+
+      {
+        input: {
+          root: [0],
+        },
+        output: [0],
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          root: [1, 2, 3],
+        },
+        output: [1, null, 2, null, 3],
+      },
+
+      {
+        input: {
+          root: [1, 2, null, 3, null, 4],
+        },
+        output: [1, null, 2, null, 3, null, 4],
+      },
+
+      {
+        input: {
+          root: [1, null, 2, null, 3],
+        },
+        output: [1, null, 2, null, 3],
+      },
+
+      {
+        input: {
+          root: [10, 5, 15, 2, 7, 12, 20],
+        },
+        output: [10, null, 5, null, 2, null, 7, null, 15, null, 12, null, 20],
+      },
+
+      {
+        input: {
+          root: [1, 2, 5, 3, 4, 6, 7],
+        },
+        output: [1, null, 2, null, 3, null, 4, null, 5, null, 6, null, 7],
+      },
+    ],
+  },
 ];
 
 export default tree;

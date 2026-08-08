@@ -1215,6 +1215,589 @@ public:
       },
     ],
   },
+
+  {
+    title: "Find the Index of the First Occurrence in a String",
+
+    description:
+      "Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.",
+
+    difficulty: "Easy",
+
+    tags: ["String", "Two Pointers"],
+
+    functionName: "strStr",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "haystack", type: "string" },
+        { name: "needle", type: "string" },
+      ],
+      java: [
+        { name: "haystack", type: "String" },
+        { name: "needle", type: "String" },
+      ],
+      python: [
+        { name: "haystack", type: "str" },
+        { name: "needle", type: "str" },
+      ],
+    },
+
+    examples: [
+      {
+        input: 'haystack = "sadbutsad", needle = "sad"',
+        output: "0",
+        explanation: 'The substring "sad" first occurs at index 0.',
+      },
+      {
+        input: 'haystack = "leetcode", needle = "leeto"',
+        output: "-1",
+        explanation: '"leeto" does not occur in "leetcode".',
+      },
+      {
+        input: 'haystack = "hello", needle = "ll"',
+        output: "2",
+        explanation: 'The substring "ll" first occurs at index 2.',
+      },
+    ],
+
+    constraints: `1 <= haystack.length, needle.length <= 10^4
+haystack and needle consist of only lowercase English characters.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int strStr(String haystack, String needle) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def strStr(self, haystack, needle):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          haystack: "sadbutsad",
+          needle: "sad",
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          haystack: "leetcode",
+          needle: "leeto",
+        },
+        output: -1,
+      },
+
+      {
+        input: {
+          haystack: "hello",
+          needle: "ll",
+        },
+        output: 2,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          haystack: "aaaaa",
+          needle: "bba",
+        },
+        output: -1,
+      },
+
+      {
+        input: {
+          haystack: "abc",
+          needle: "abc",
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          haystack: "mississippi",
+          needle: "issip",
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          haystack: "a",
+          needle: "a",
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          haystack: "abc",
+          needle: "c",
+        },
+        output: 2,
+      },
+    ],
+  },
+
+  {
+    title: "Add Strings",
+
+    description:
+      "Given two non-negative integers num1 and num2 represented as strings, return the sum of num1 and num2 as a string. You must not use any built-in BigInteger library or convert the inputs directly to integers.",
+
+    difficulty: "Easy",
+
+    tags: ["String", "Math", "Simulation"],
+
+    functionName: "addStrings",
+
+    returnType: {
+      cpp: "string",
+      java: "String",
+      python: "str",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "num1", type: "string" },
+        { name: "num2", type: "string" },
+      ],
+      java: [
+        { name: "num1", type: "String" },
+        { name: "num2", type: "String" },
+      ],
+      python: [
+        { name: "num1", type: "str" },
+        { name: "num2", type: "str" },
+      ],
+    },
+
+    examples: [
+      {
+        input: 'num1 = "11", num2 = "123"',
+        output: '"134"',
+        explanation: "Adding 11 and 123 gives 134.",
+      },
+      {
+        input: 'num1 = "456", num2 = "77"',
+        output: '"533"',
+        explanation: "Adding 456 and 77 gives 533.",
+      },
+      {
+        input: 'num1 = "0", num2 = "0"',
+        output: '"0"',
+        explanation: "Adding 0 and 0 gives 0.",
+      },
+    ],
+
+    constraints: `1 <= num1.length, num2.length <= 10^4
+num1 and num2 consist of only digits.
+num1 and num2 do not contain any leading zeros except for the number 0 itself.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    String addStrings(String num1, String num2) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def addStrings(self, num1, num2):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          num1: "11",
+          num2: "123",
+        },
+        output: "134",
+      },
+
+      {
+        input: {
+          num1: "456",
+          num2: "77",
+        },
+        output: "533",
+      },
+
+      {
+        input: {
+          num1: "0",
+          num2: "0",
+        },
+        output: "0",
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          num1: "999",
+          num2: "1",
+        },
+        output: "1000",
+      },
+
+      {
+        input: {
+          num1: "1",
+          num2: "9999",
+        },
+        output: "10000",
+      },
+
+      {
+        input: {
+          num1: "123456789",
+          num2: "987654321",
+        },
+        output: "1111111110",
+      },
+
+      {
+        input: {
+          num1: "5",
+          num2: "5",
+        },
+        output: "10",
+      },
+
+      {
+        input: {
+          num1: "0",
+          num2: "999999",
+        },
+        output: "999999",
+      },
+    ],
+  },
+
+  {
+    title: "Longest Repeating Character Replacement",
+
+    description:
+      "You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character at most k times. Return the length of the longest substring containing the same letter after performing the replacements.",
+
+    difficulty: "Medium",
+
+    tags: ["String", "Hash Table", "Sliding Window", "Two Pointers"],
+
+    functionName: "characterReplacement",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "s", type: "string" },
+        { name: "k", type: "int" },
+      ],
+      java: [
+        { name: "s", type: "String" },
+        { name: "k", type: "int" },
+      ],
+      python: [
+        { name: "s", type: "str" },
+        { name: "k", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: 's = "ABAB", k = 2',
+        output: "4",
+        explanation:
+          'Replace the two B characters with A to get "AAAA". The longest substring has length 4.',
+      },
+      {
+        input: 's = "AABABBA", k = 1',
+        output: "4",
+        explanation:
+          'Replace one B in "AABA" or one A in "ABBA" to get a substring of length 4 containing the same character.',
+      },
+      {
+        input: 's = "AAAA", k = 2',
+        output: "4",
+        explanation:
+          "The string already contains the same character throughout, so the answer is 4.",
+      },
+    ],
+
+    constraints: `1 <= s.length <= 10^5
+s consists of only uppercase English letters.
+0 <= k <= s.length`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int characterReplacement(String s, int k) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def characterReplacement(self, s, k):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          s: "ABAB",
+          k: 2,
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          s: "AABABBA",
+          k: 1,
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          s: "AAAA",
+          k: 2,
+        },
+        output: 4,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          s: "ABBB",
+          k: 2,
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          s: "ABCDE",
+          k: 1,
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          s: "AAAAABBB",
+          k: 2,
+        },
+        output: 7,
+      },
+
+      {
+        input: {
+          s: "A",
+          k: 0,
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          s: "ABABBA",
+          k: 2,
+        },
+        output: 5,
+      },
+    ],
+  },
+
+  {
+    title: "Word Pattern",
+
+    description:
+      "Given a pattern and a string s, find if s follows the same pattern. A string follows the pattern if there is a one-to-one correspondence between a letter in pattern and a non-empty word in s.",
+
+    difficulty: "Easy",
+
+    tags: ["String", "Hash Table"],
+
+    functionName: "wordPattern",
+
+    returnType: {
+      cpp: "bool",
+      java: "boolean",
+      python: "bool",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "pattern", type: "string" },
+        { name: "s", type: "string" },
+      ],
+      java: [
+        { name: "pattern", type: "String" },
+        { name: "s", type: "String" },
+      ],
+      python: [
+        { name: "pattern", type: "str" },
+        { name: "s", type: "str" },
+      ],
+    },
+
+    examples: [
+      {
+        input: 'pattern = "abba", s = "dog cat cat dog"',
+        output: "true",
+        explanation: 'The pattern "abba" matches the words "dog cat cat dog".',
+      },
+      {
+        input: 'pattern = "abba", s = "dog cat cat fish"',
+        output: "false",
+        explanation:
+          'The last word should match the first character pattern, but "fish" does not match "dog".',
+      },
+      {
+        input: 'pattern = "aaaa", s = "dog cat cat dog"',
+        output: "false",
+        explanation:
+          "All pattern characters are the same, but the words are not all the same.",
+      },
+    ],
+
+    constraints: `1 <= pattern.length <= 300
+1 <= s.length <= 3000
+pattern consists of lowercase English letters.
+s consists of lowercase English letters and spaces.
+There is exactly one space between words in s.
+There are no leading or trailing spaces in s.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    boolean wordPattern(String pattern, String s) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def wordPattern(self, pattern, s):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          pattern: "abba",
+          s: "dog cat cat dog",
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          pattern: "abba",
+          s: "dog cat cat fish",
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          pattern: "aaaa",
+          s: "dog cat cat dog",
+        },
+        output: false,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          pattern: "abba",
+          s: "dog dog dog dog",
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          pattern: "abc",
+          s: "dog cat fish",
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          pattern: "abc",
+          s: "dog cat cat",
+        },
+        output: false,
+      },
+
+      {
+        input: {
+          pattern: "a",
+          s: "dog",
+        },
+        output: true,
+      },
+
+      {
+        input: {
+          pattern: "ab",
+          s: "dog dog",
+        },
+        output: false,
+      },
+    ],
+  },
 ];
 
 export default strings;

@@ -770,6 +770,283 @@ public:
       },
     ],
   },
+
+  {
+    title: "Time Needed to Buy Tickets",
+
+    description:
+      "There are n people in a queue, and the i-th person wants to buy tickets[i] tickets. Each person takes exactly one second to buy one ticket. After buying a ticket, a person moves to the end of the queue if they still have tickets left. Return the total time required for the person at index k to finish buying all their tickets.",
+
+    difficulty: "Easy",
+
+    tags: ["Queue", "Array", "Simulation"],
+
+    functionName: "timeRequiredToBuy",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "tickets", type: "vector<int>" },
+        { name: "k", type: "int" },
+      ],
+      java: [
+        { name: "tickets", type: "int[]" },
+        { name: "k", type: "int" },
+      ],
+      python: [
+        { name: "tickets", type: "List[int]" },
+        { name: "k", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "tickets = [2,3,2], k = 2",
+        output: "6",
+        explanation:
+          "The queue cycles through the people until the person at index 2 has bought both tickets. The total time is 6 seconds.",
+      },
+      {
+        input: "tickets = [5,1,1,1], k = 0",
+        output: "8",
+        explanation:
+          "The person at index 0 needs 5 tickets. Every other person buys one ticket before returning to the front, so the total time is 8 seconds.",
+      },
+      {
+        input: "tickets = [1,1,1,1], k = 2",
+        output: "3",
+        explanation:
+          "The first three people each buy one ticket before the person at index 2 finishes.",
+      },
+    ],
+
+    constraints: `n == tickets.length
+1 <= n <= 100
+1 <= tickets[i] <= 100
+0 <= k < n`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int timeRequiredToBuy(vector<int>& tickets, int k) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int timeRequiredToBuy(int[] tickets, int k) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def timeRequiredToBuy(self, tickets, k):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          tickets: [2, 3, 2],
+          k: 2,
+        },
+        output: 6,
+      },
+
+      {
+        input: {
+          tickets: [5, 1, 1, 1],
+          k: 0,
+        },
+        output: 8,
+      },
+
+      {
+        input: {
+          tickets: [1, 1, 1, 1],
+          k: 2,
+        },
+        output: 3,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          tickets: [1],
+          k: 0,
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          tickets: [2, 2, 2],
+          k: 1,
+        },
+        output: 5,
+      },
+
+      {
+        input: {
+          tickets: [3, 4, 2, 1],
+          k: 1,
+        },
+        output: 10,
+      },
+
+      {
+        input: {
+          tickets: [10, 1, 1, 1, 1],
+          k: 0,
+        },
+        output: 14,
+      },
+
+      {
+        input: {
+          tickets: [1, 2, 3, 4],
+          k: 3,
+        },
+        output: 10,
+      },
+    ],
+  },
+
+  {
+    title: "Reveal Cards In Increasing Order",
+
+    description:
+      "You are given an integer array deck. You want to reorder the deck so that when you reveal the cards one by one, the revealed values are in increasing order. To reveal a card, take the top card and reveal it. If cards remain, move the next card to the bottom of the deck. Return an ordering of the deck that satisfies this process.",
+
+    difficulty: "Medium",
+
+    tags: ["Queue", "Array", "Sorting", "Simulation"],
+
+    functionName: "deckRevealedIncreasing",
+
+    returnType: {
+      cpp: "vector<int>",
+      java: "int[]",
+      python: "List[int]",
+    },
+
+    parameters: {
+      cpp: [{ name: "deck", type: "vector<int>" }],
+      java: [{ name: "deck", type: "int[]" }],
+      python: [{ name: "deck", type: "List[int]" }],
+    },
+
+    examples: [
+      {
+        input: "deck = [17,13,11,2,3,5,7]",
+        output: "[2,13,3,11,5,17,7]",
+        explanation:
+          "After arranging the deck as [2,13,3,11,5,17,7], revealing cards produces [2,3,5,7,11,13,17].",
+      },
+      {
+        input: "deck = [1,1000]",
+        output: "[1,1000]",
+        explanation:
+          "There are only two cards, so the required ordering is [1,1000].",
+      },
+      {
+        input: "deck = [1,2,3,4]",
+        output: "[1,3,2,4]",
+        explanation: "Revealing cards from [1,3,2,4] produces [1,2,3,4].",
+      },
+    ],
+
+    constraints: `1 <= deck.length <= 1000
+1 <= deck[i] <= 10^6
+All values in deck are unique.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int[] deckRevealedIncreasing(int[] deck) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def deckRevealedIncreasing(self, deck):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          deck: [17, 13, 11, 2, 3, 5, 7],
+        },
+        output: [2, 13, 3, 11, 5, 17, 7],
+      },
+
+      {
+        input: {
+          deck: [1, 1000],
+        },
+        output: [1, 1000],
+      },
+
+      {
+        input: {
+          deck: [1, 2, 3, 4],
+        },
+        output: [1, 3, 2, 4],
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          deck: [1],
+        },
+        output: [1],
+      },
+
+      {
+        input: {
+          deck: [1, 2],
+        },
+        output: [1, 2],
+      },
+
+      {
+        input: {
+          deck: [1, 2, 3],
+        },
+        output: [1, 3, 2],
+      },
+
+      {
+        input: {
+          deck: [10, 20, 30, 40, 50],
+        },
+        output: [10, 40, 20, 50, 30],
+      },
+
+      {
+        input: {
+          deck: [100, 1, 50, 25, 75, 10],
+        },
+        output: [1, 50, 10, 75, 25, 100],
+      },
+    ],
+  },
 ];
 
 export default queue;

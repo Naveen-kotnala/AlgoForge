@@ -968,6 +968,259 @@ public:
       },
     ],
   },
+
+  {
+    title: "Simplify Path",
+
+    description:
+      "You are given an absolute Unix-style file path. Simplify the path to its canonical form. In a Unix-style file system, a single period represents the current directory, two periods represent the parent directory, and multiple consecutive slashes are treated as a single slash.",
+
+    difficulty: "Medium",
+
+    tags: ["Stack", "String"],
+
+    functionName: "simplifyPath",
+
+    returnType: {
+      cpp: "string",
+      java: "String",
+      python: "str",
+    },
+
+    parameters: {
+      cpp: [{ name: "path", type: "string" }],
+      java: [{ name: "path", type: "String" }],
+      python: [{ name: "path", type: "str" }],
+    },
+
+    examples: [
+      {
+        input: 'path = "/home/"',
+        output: '"/home"',
+        explanation: "The trailing slash is removed from the canonical path.",
+      },
+      {
+        input: 'path = "/home//foo/"',
+        output: '"/home/foo"',
+        explanation: "Multiple consecutive slashes are treated as one slash.",
+      },
+      {
+        input: 'path = "/home/user/Documents/../Pictures"',
+        output: '"/home/user/Pictures"',
+        explanation: 'The ".." moves from "Documents" back to "user".',
+      },
+    ],
+
+    constraints: `1 <= path.length <= 3000
+path consists of English letters, digits, period '.', slash '/' or underscore '_'.
+path is a valid absolute Unix-style path.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    string simplifyPath(string path) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    String simplifyPath(String path) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def simplifyPath(self, path):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          path: "/home/",
+        },
+        output: "/home",
+      },
+
+      {
+        input: {
+          path: "/home//foo/",
+        },
+        output: "/home/foo",
+      },
+
+      {
+        input: {
+          path: "/home/user/Documents/../Pictures",
+        },
+        output: "/home/user/Pictures",
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          path: "/../",
+        },
+        output: "/",
+      },
+
+      {
+        input: {
+          path: "/home/../../..",
+        },
+        output: "/",
+      },
+
+      {
+        input: {
+          path: "/a/./b/../../c/",
+        },
+        output: "/c",
+      },
+
+      {
+        input: {
+          path: "/a//b////c/d//././/..",
+        },
+        output: "/a/b/c",
+      },
+
+      {
+        input: {
+          path: "/abc/def/ghi/../jkl",
+        },
+        output: "/abc/def/jkl",
+      },
+    ],
+  },
+
+  {
+    title: "Remove All Adjacent Duplicates in String",
+
+    description:
+      "You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them. Repeat this process until no more adjacent duplicates can be removed. Return the final string.",
+
+    difficulty: "Easy",
+
+    tags: ["Stack", "String"],
+
+    functionName: "removeDuplicates",
+
+    returnType: {
+      cpp: "string",
+      java: "String",
+      python: "str",
+    },
+
+    parameters: {
+      cpp: [{ name: "s", type: "string" }],
+      java: [{ name: "s", type: "String" }],
+      python: [{ name: "s", type: "str" }],
+    },
+
+    examples: [
+      {
+        input: 's = "abbaca"',
+        output: '"ca"',
+        explanation: 'Remove "bb" to get "aaca", then remove "aa" to get "ca".',
+      },
+      {
+        input: 's = "azxxzy"',
+        output: '"ay"',
+        explanation: 'Remove "xx" to get "azzy", then remove "zz" to get "ay".',
+      },
+      {
+        input: 's = "aabbcc"',
+        output: '""',
+        explanation: "All adjacent duplicate pairs are removed.",
+      },
+    ],
+
+    constraints: `1 <= s.length <= 100000
+s consists of lowercase English letters.`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    string removeDuplicates(string s) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    String removeDuplicates(String s) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def removeDuplicates(self, s):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          s: "abbaca",
+        },
+        output: "ca",
+      },
+
+      {
+        input: {
+          s: "azxxzy",
+        },
+        output: "ay",
+      },
+
+      {
+        input: {
+          s: "aabbcc",
+        },
+        output: "",
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          s: "aaaa",
+        },
+        output: "",
+      },
+
+      {
+        input: {
+          s: "abcddcba",
+        },
+        output: "",
+      },
+
+      {
+        input: {
+          s: "aababaab",
+        },
+        output: "ba",
+      },
+
+      {
+        input: {
+          s: "abcdef",
+        },
+        output: "abcdef",
+      },
+
+      {
+        input: {
+          s: "abba",
+        },
+        output: "",
+      },
+    ],
+  },
 ];
 
 export default stack;

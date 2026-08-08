@@ -1297,6 +1297,244 @@ public:
       },
     ],
   },
+
+  {
+    title: "Maximum Swap",
+
+    description:
+      "You are given a non-negative integer num. You can swap two digits at most once to get the maximum valued number possible. Return the maximum number you can get.",
+
+    difficulty: "Medium",
+
+    tags: ["Greedy", "Array", "Hash Table"],
+
+    functionName: "maximumSwap",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "num", type: "int" }],
+      java: [{ name: "num", type: "int" }],
+      python: [{ name: "num", type: "int" }],
+    },
+
+    examples: [
+      {
+        input: "num = 2736",
+        output: "7236",
+        explanation:
+          "Swap the digits 2 and 7 to obtain the maximum number 7236.",
+      },
+      {
+        input: "num = 9973",
+        output: "9973",
+        explanation:
+          "The number is already the maximum possible number, so no swap is needed.",
+      },
+      {
+        input: "num = 98368",
+        output: "98863",
+        explanation:
+          "Swap the 3 with the last 8 to obtain the maximum possible number.",
+      },
+    ],
+
+    constraints: `
+0 <= num <= 10^8
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int maximumSwap(int num) {
+
+    }
+};`,
+
+      java: `class Solution {
+public int maximumSwap(int num) {
+
+}
+}`,
+
+      python: `class Solution:
+    def maximumSwap(self, num):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          num: 2736,
+        },
+        output: 7236,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          num: 9973,
+        },
+        output: 9973,
+      },
+      {
+        input: {
+          num: 98368,
+        },
+        output: 98863,
+      },
+      {
+        input: {
+          num: 1993,
+        },
+        output: 9913,
+      },
+      {
+        input: {
+          num: 12345,
+        },
+        output: 52341,
+      },
+      {
+        input: {
+          num: 0,
+        },
+        output: 0,
+      },
+    ],
+  },
+
+  {
+    title: "Hand of Straights",
+
+    description:
+      "Alice has some number of cards, and she wants to rearrange the cards into groups so that each group contains exactly groupSize consecutive cards. Return true if she can rearrange the cards into such groups, or false otherwise.",
+
+    difficulty: "Medium",
+
+    tags: ["Greedy", "Hash Table", "Sorting"],
+
+    functionName: "isNStraightHand",
+
+    returnType: {
+      cpp: "bool",
+      java: "boolean",
+      python: "bool",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "hand", type: "vector<int>" },
+        { name: "groupSize", type: "int" },
+      ],
+      java: [
+        { name: "hand", type: "int[]" },
+        { name: "groupSize", type: "int" },
+      ],
+      python: [
+        { name: "hand", type: "List[int]" },
+        { name: "groupSize", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "hand = [1,2,3,6,2,3,4,7,8], groupSize = 3",
+        output: "true",
+        explanation:
+          "The hand can be rearranged into [1,2,3], [2,3,4], and [6,7,8].",
+      },
+      {
+        input: "hand = [1,2,3,4,5], groupSize = 4",
+        output: "false",
+        explanation:
+          "The number of cards is not divisible into groups of size 4.",
+      },
+      {
+        input: "hand = [1,2,3,4,5,6], groupSize = 2",
+        output: "true",
+        explanation: "The cards can be grouped as [1,2], [3,4], and [5,6].",
+      },
+    ],
+
+    constraints: `
+1 <= hand.length <= 10^4
+0 <= hand[i] <= 10^9
+1 <= groupSize <= hand.length
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+
+    }
+};`,
+
+      java: `class Solution {
+public boolean isNStraightHand(int[] hand, int groupSize) {
+
+}
+}`,
+
+      python: `class Solution:
+    def isNStraightHand(self, hand, groupSize):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          hand: [1, 2, 3, 6, 2, 3, 4, 7, 8],
+          groupSize: 3,
+        },
+        output: true,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          hand: [1, 2, 3, 4, 5],
+          groupSize: 4,
+        },
+        output: false,
+      },
+      {
+        input: {
+          hand: [1, 2, 3, 4, 5, 6],
+          groupSize: 2,
+        },
+        output: true,
+      },
+      {
+        input: {
+          hand: [1, 2, 3, 4],
+          groupSize: 4,
+        },
+        output: true,
+      },
+      {
+        input: {
+          hand: [1, 2, 3, 4, 5, 6, 7, 8],
+          groupSize: 4,
+        },
+        output: true,
+      },
+      {
+        input: {
+          hand: [1, 2, 4, 5, 6, 7],
+          groupSize: 3,
+        },
+        output: false,
+      },
+    ],
+  },
 ];
 
 export default greedy;

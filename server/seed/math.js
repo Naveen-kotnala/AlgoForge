@@ -1203,6 +1203,226 @@ public:
       },
     ],
   },
+
+  {
+    title: "GCD of Strings",
+
+    description:
+      "For two strings str1 and str2, return the largest string x such that x divides both str1 and str2. A string x divides a string s if s can be constructed by concatenating x with itself one or more times.",
+
+    difficulty: "Easy",
+
+    tags: ["Math", "String", "Number Theory"],
+
+    functionName: "gcdOfStrings",
+
+    returnType: {
+      cpp: "string",
+      java: "String",
+      python: "str",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "str1", type: "string" },
+        { name: "str2", type: "string" },
+      ],
+      java: [
+        { name: "str1", type: "String" },
+        { name: "str2", type: "String" },
+      ],
+      python: [
+        { name: "str1", type: "str" },
+        { name: "str2", type: "str" },
+      ],
+    },
+
+    examples: [
+      {
+        input: 'str1 = "ABCABC", str2 = "ABC"',
+        output: '"ABC"',
+        explanation:
+          "The string ABC can be repeated to construct both ABCABC and ABC.",
+      },
+      {
+        input: 'str1 = "ABABAB", str2 = "ABAB"',
+        output: '"AB"',
+        explanation: "The largest common divisor string is AB.",
+      },
+      {
+        input: 'str1 = "LEET", str2 = "CODE"',
+        output: '""',
+        explanation: "There is no string that can construct both strings.",
+      },
+    ],
+
+    constraints: `
+1 <= str1.length, str2.length <= 1000
+str1 and str2 consist of uppercase English letters.
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    string gcdOfStrings(string str1, string str2) {
+
+    }
+};`,
+
+      java: `class Solution {
+public String gcdOfStrings(String str1, String str2) {
+
+}
+}`,
+
+      python: `class Solution:
+    def gcdOfStrings(self, str1, str2):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          str1: "ABCABC",
+          str2: "ABC",
+        },
+        output: "ABC",
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          str1: "ABABAB",
+          str2: "ABAB",
+        },
+        output: "AB",
+      },
+      {
+        input: {
+          str1: "LEET",
+          str2: "CODE",
+        },
+        output: "",
+      },
+      {
+        input: {
+          str1: "AAAAAA",
+          str2: "AAA",
+        },
+        output: "AAA",
+      },
+      {
+        input: {
+          str1: "ABCABCABC",
+          str2: "ABCABC",
+        },
+        output: "ABC",
+      },
+    ],
+  },
+
+  {
+    title: "Add Digits",
+
+    description:
+      "Given an integer num, repeatedly add all its digits until the result has only one digit, and return that single digit.",
+
+    difficulty: "Easy",
+
+    tags: ["Math", "Number Theory"],
+
+    functionName: "addDigits",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "num", type: "int" }],
+      java: [{ name: "num", type: "int" }],
+      python: [{ name: "num", type: "int" }],
+    },
+
+    examples: [
+      {
+        input: "num = 38",
+        output: "2",
+        explanation: "3 + 8 = 11, then 1 + 1 = 2.",
+      },
+      {
+        input: "num = 0",
+        output: "0",
+        explanation: "The digital root of 0 is 0.",
+      },
+      {
+        input: "num = 9999",
+        output: "9",
+        explanation: "9 + 9 + 9 + 9 = 36, then 3 + 6 = 9.",
+      },
+    ],
+
+    constraints: `
+0 <= num <= 2^31 - 1
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int addDigits(int num) {
+
+    }
+};`,
+
+      java: `class Solution {
+public int addDigits(int num) {
+
+}
+}`,
+
+      python: `class Solution:
+    def addDigits(self, num):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          num: 38,
+        },
+        output: 2,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          num: 0,
+        },
+        output: 0,
+      },
+      {
+        input: {
+          num: 9999,
+        },
+        output: 9,
+      },
+      {
+        input: {
+          num: 12345,
+        },
+        output: 6,
+      },
+      {
+        input: {
+          num: 7,
+        },
+        output: 7,
+      },
+    ],
+  },
 ];
 
 export default math;

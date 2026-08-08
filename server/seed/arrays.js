@@ -1815,6 +1815,529 @@ public:
       },
     ],
   },
+
+  // =========================
+  // Problem 19: 3Sum
+  // =========================
+
+  {
+    title: "3Sum",
+
+    description:
+      "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. The solution set must not contain duplicate triplets.",
+
+    difficulty: "Medium",
+
+    tags: ["Array", "Two Pointers", "Sorting"],
+
+    functionName: "threeSum",
+    returnType: {
+      cpp: "vector<vector<int>>",
+      java: "List<List<Integer>>",
+      python: "List[List[int]]",
+    },
+
+    parameters: {
+      cpp: [{ name: "nums", type: "vector<int>" }],
+      java: [{ name: "nums", type: "int[]" }],
+      python: [{ name: "nums", type: "List[int]" }],
+    },
+
+    examples: [
+      {
+        input: "nums = [-1,0,1,2,-1,-4]",
+        output: "[[-1,-1,2],[-1,0,1]]",
+        explanation: "The triplets [-1,-1,2] and [-1,0,1] have a sum of 0.",
+      },
+      {
+        input: "nums = [0,1,1]",
+        output: "[]",
+      },
+      {
+        input: "nums = [0,0,0]",
+        output: "[[0,0,0]]",
+      },
+    ],
+
+    constraints: `3 <= nums.length <= 3000
+-10^5 <= nums[i] <= 10^5`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+
+    }
+};`,
+
+      java: `class Solution {
+public List<List<Integer>> threeSum(int[] nums) {
+
+}
+}`,
+
+      python: `class Solution:
+    def threeSum(self, nums):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          nums: [-1, 0, 1, 2, -1, -4],
+        },
+        output: [
+          [-1, -1, 2],
+          [-1, 0, 1],
+        ],
+      },
+      {
+        input: {
+          nums: [0, 1, 1],
+        },
+        output: [],
+      },
+      {
+        input: {
+          nums: [0, 0, 0],
+        },
+        output: [[0, 0, 0]],
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          nums: [-2, 0, 1, 1, 2],
+        },
+        output: [
+          [-2, 0, 2],
+          [-2, 1, 1],
+        ],
+      },
+      {
+        input: {
+          nums: [-1, 0, 1],
+        },
+        output: [[-1, 0, 1]],
+      },
+      {
+        input: {
+          nums: [-5, -4, -3, -2, -1],
+        },
+        output: [],
+      },
+      {
+        input: {
+          nums: [1, 2, -2, -1],
+        },
+        output: [],
+      },
+      {
+        input: {
+          nums: [0, 0, 0, 0],
+        },
+        output: [[0, 0, 0]],
+      },
+    ],
+  },
+
+  {
+    title: "Container With Most Water",
+
+    description:
+      "You are given an integer array height of length n. There are n vertical lines where the two endpoints of the ith line are at (i, 0) and (i, height[i]). Find two lines that together with the x-axis form a container that contains the most water. Return the maximum amount of water a container can store.",
+
+    difficulty: "Medium",
+
+    tags: ["Array", "Two Pointers", "Greedy"],
+
+    functionName: "maxArea",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "height", type: "vector<int>" }],
+      java: [{ name: "height", type: "int[]" }],
+      python: [{ name: "height", type: "List[int]" }],
+    },
+
+    examples: [
+      {
+        input: "height = [1,8,6,2,5,4,8,3,7]",
+        output: "49",
+        explanation:
+          "The two lines with heights 8 and 7 form the container with the maximum area of 49.",
+      },
+      {
+        input: "height = [1,1]",
+        output: "1",
+        explanation:
+          "The two lines have height 1 and are one unit apart, so the maximum area is 1.",
+      },
+    ],
+
+    constraints: `2 <= height.length <= 10^5
+0 <= height[i] <= 10^4`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int maxArea(int[] height) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def maxArea(self, height):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          height: [1, 8, 6, 2, 5, 4, 8, 3, 7],
+        },
+        output: 49,
+      },
+
+      {
+        input: {
+          height: [1, 1],
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          height: [4, 3, 2, 1, 4],
+        },
+        output: 16,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          height: [1, 2, 1],
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          height: [1, 3, 2, 5, 25, 24, 5],
+        },
+        output: 24,
+      },
+
+      {
+        input: {
+          height: [2, 3, 4, 5, 18, 17, 6],
+        },
+        output: 17,
+      },
+
+      {
+        input: {
+          height: [1, 1, 1, 1, 1],
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          height: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+        },
+        output: 25,
+      },
+    ],
+  },
+
+  {
+    title: "Subarray Sum Equals K",
+
+    description:
+      "Given an integer array nums and an integer k, return the total number of subarrays whose sum equals k. A subarray is a contiguous non-empty sequence of elements within an array.",
+
+    difficulty: "Medium",
+
+    tags: ["Array", "Hash Map", "Prefix Sum"],
+
+    functionName: "subarraySum",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "nums", type: "vector<int>" },
+        { name: "k", type: "int" },
+      ],
+      java: [
+        { name: "nums", type: "int[]" },
+        { name: "k", type: "int" },
+      ],
+      python: [
+        { name: "nums", type: "List[int]" },
+        { name: "k", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "nums = [1,1,1], k = 2",
+        output: "2",
+        explanation:
+          "There are two subarrays whose sum is 2: [1,1] starting at index 0 and [1,1] starting at index 1.",
+      },
+      {
+        input: "nums = [1,2,3], k = 3",
+        output: "2",
+        explanation: "The subarrays [1,2] and [3] both have a sum equal to 3.",
+      },
+      {
+        input: "nums = [1,-1,0], k = 0",
+        output: "3",
+        explanation: "The subarrays [1,-1], [0], and [1,-1,0] have a sum of 0.",
+      },
+    ],
+
+    constraints: `1 <= nums.length <= 2 * 10^4
+-1000 <= nums[i] <= 1000
+-10^7 <= k <= 10^7`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int subarraySum(int[] nums, int k) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def subarraySum(self, nums, k):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          nums: [1, 1, 1],
+          k: 2,
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          nums: [1, 2, 3],
+          k: 3,
+        },
+        output: 2,
+      },
+
+      {
+        input: {
+          nums: [1, -1, 0],
+          k: 0,
+        },
+        output: 3,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          nums: [1],
+          k: 1,
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          nums: [1, -1, 0],
+          k: 0,
+        },
+        output: 3,
+      },
+
+      {
+        input: {
+          nums: [3, 4, 7, 2, -3, 1, 4, 2],
+          k: 7,
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          nums: [1, 2, 1, 2, 1],
+          k: 3,
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          nums: [0, 0, 0, 0, 0],
+          k: 0,
+        },
+        output: 15,
+      },
+    ],
+  },
+
+  {
+    title: "Longest Consecutive Sequence",
+
+    description:
+      "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+
+    difficulty: "Medium",
+
+    tags: ["Array", "Hash Table"],
+
+    functionName: "longestConsecutive",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "nums", type: "vector<int>" }],
+      java: [{ name: "nums", type: "int[]" }],
+      python: [{ name: "nums", type: "List[int]" }],
+    },
+
+    examples: [
+      {
+        input: "nums = [100,4,200,1,3,2]",
+        output: "4",
+        explanation:
+          "The longest consecutive sequence is [1,2,3,4], so the answer is 4.",
+      },
+      {
+        input: "nums = [0,3,7,2,5,8,4,6,0,1]",
+        output: "9",
+        explanation:
+          "The longest consecutive sequence is [0,1,2,3,4,5,6,7,8], so the answer is 9.",
+      },
+      {
+        input: "nums = [1,0,1,2]",
+        output: "3",
+        explanation:
+          "The longest consecutive sequence is [0,1,2], so the answer is 3.",
+      },
+    ],
+
+    constraints: `0 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+    }
+};`,
+
+      java: `class Solution {
+public:
+    int longestConsecutive(int[] nums) {
+        
+    }
+}`,
+
+      python: `class Solution:
+    def longestConsecutive(self, nums):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          nums: [100, 4, 200, 1, 3, 2],
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          nums: [0, 3, 7, 2, 5, 8, 4, 6, 0, 1],
+        },
+        output: 9,
+      },
+
+      {
+        input: {
+          nums: [1, 0, 1, 2],
+        },
+        output: 3,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          nums: [],
+        },
+        output: 0,
+      },
+
+      {
+        input: {
+          nums: [1],
+        },
+        output: 1,
+      },
+
+      {
+        input: {
+          nums: [9, 1, 4, 7, 3, 2, 6, 5],
+        },
+        output: 7,
+      },
+
+      {
+        input: {
+          nums: [10, 5, 12, 3, 55, 30, 4, 11, 2],
+        },
+        output: 4,
+      },
+
+      {
+        input: {
+          nums: [1, 2, 3, 4, 5, 6],
+        },
+        output: 6,
+      },
+    ],
+  },
 ];
 
 export default arrays;

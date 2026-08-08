@@ -1358,6 +1358,365 @@ public:
       },
     ],
   },
+
+  {
+    title: "Maximum Performance of a Team",
+
+    description:
+      "You are given n engineers. Each engineer has a speed and an efficiency. You need to select at most k engineers to form a team. The performance of a team is defined as the sum of the speeds of all selected engineers multiplied by the minimum efficiency among them. Return the maximum possible performance of the team.",
+
+    difficulty: "Hard",
+
+    tags: ["Heap", "Priority Queue", "Greedy", "Sorting"],
+
+    functionName: "maxPerformance",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "n", type: "int" },
+        { name: "speed", type: "vector<int>" },
+        { name: "efficiency", type: "vector<int>" },
+        { name: "k", type: "int" },
+      ],
+      java: [
+        { name: "n", type: "int" },
+        { name: "speed", type: "int[]" },
+        { name: "efficiency", type: "int[]" },
+        { name: "k", type: "int" },
+      ],
+      python: [
+        { name: "n", type: "int" },
+        { name: "speed", type: "List[int]" },
+        { name: "efficiency", type: "List[int]" },
+        { name: "k", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input:
+          "n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 2",
+        output: "60",
+        explanation:
+          "Selecting engineers with speeds 10 and 5 gives a speed sum of 15 and minimum efficiency of 4, resulting in performance 15 * 4 = 60.",
+      },
+      {
+        input:
+          "n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 3",
+        output: "68",
+        explanation:
+          "The maximum performance achievable with at most 3 engineers is 68.",
+      },
+    ],
+
+    constraints: `
+1 <= k <= n <= 10^5
+1 <= speed[i] <= 10^5
+1 <= efficiency[i] <= 10^8
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+
+    }
+};`,
+
+      java: `class Solution {
+public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+
+}
+}`,
+
+      python: `class Solution:
+    def maxPerformance(self, n, speed, efficiency, k):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          n: 6,
+          speed: [2, 10, 3, 1, 5, 8],
+          efficiency: [5, 4, 3, 9, 7, 2],
+          k: 2,
+        },
+        output: 60,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          n: 6,
+          speed: [2, 10, 3, 1, 5, 8],
+          efficiency: [5, 4, 3, 9, 7, 2],
+          k: 3,
+        },
+        output: 68,
+      },
+      {
+        input: {
+          n: 3,
+          speed: [2, 8, 5],
+          efficiency: [2, 7, 5],
+          k: 2,
+        },
+        output: 52,
+      },
+      {
+        input: {
+          n: 1,
+          speed: [5],
+          efficiency: [10],
+          k: 1,
+        },
+        output: 50,
+      },
+    ],
+  },
+
+  {
+    title: "Ugly Number III",
+
+    description:
+      "An ugly number is a positive integer that is divisible by at least one of the integers a, b, or c. Given four integers n, a, b, and c, return the nth ugly number.",
+
+    difficulty: "Medium",
+
+    tags: ["Heap", "Math", "Binary Search", "Number Theory"],
+
+    functionName: "nthUglyNumber",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [
+        { name: "n", type: "int" },
+        { name: "a", type: "int" },
+        { name: "b", type: "int" },
+        { name: "c", type: "int" },
+      ],
+      java: [
+        { name: "n", type: "int" },
+        { name: "a", type: "int" },
+        { name: "b", type: "int" },
+        { name: "c", type: "int" },
+      ],
+      python: [
+        { name: "n", type: "int" },
+        { name: "a", type: "int" },
+        { name: "b", type: "int" },
+        { name: "c", type: "int" },
+      ],
+    },
+
+    examples: [
+      {
+        input: "n = 3, a = 2, b = 3, c = 5",
+        output: "4",
+        explanation:
+          "The positive integers divisible by 2, 3, or 5 are 2, 3, 4, 5, 6, ... Therefore, the 3rd ugly number is 4.",
+      },
+      {
+        input: "n = 4, a = 2, b = 3, c = 4",
+        output: "6",
+        explanation:
+          "The ugly numbers are 2, 3, 4, 6, 8, 9, ... Therefore, the 4th ugly number is 6.",
+      },
+      {
+        input: "n = 5, a = 2, b = 11, c = 13",
+        output: "10",
+        explanation:
+          "The numbers divisible by 2, 11, or 13 start with 2, 4, 6, 8, 10, ... Therefore, the 5th ugly number is 10.",
+      },
+    ],
+
+    constraints: `
+1 <= n, a, b, c <= 10^9
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int nthUglyNumber(int n, int a, int b, int c) {
+
+    }
+};`,
+
+      java: `class Solution {
+public int nthUglyNumber(int n, int a, int b, int c) {
+
+}
+}`,
+
+      python: `class Solution:
+    def nthUglyNumber(self, n, a, b, c):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          n: 3,
+          a: 2,
+          b: 3,
+          c: 5,
+        },
+        output: 4,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          n: 4,
+          a: 2,
+          b: 3,
+          c: 4,
+        },
+        output: 6,
+      },
+      {
+        input: {
+          n: 5,
+          a: 2,
+          b: 11,
+          c: 13,
+        },
+        output: 10,
+      },
+      {
+        input: {
+          n: 1000000000,
+          a: 2,
+          b: 217983653,
+          c: 336916467,
+        },
+        output: 1999999984,
+      },
+    ],
+  },
+
+  {
+    title: "Ugly Number II",
+
+    description:
+      "An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5. Given an integer n, return the nth ugly number.",
+
+    difficulty: "Medium",
+
+    tags: ["Heap", "Priority Queue", "Dynamic Programming", "Hash Set"],
+
+    functionName: "nthUglyNumber",
+
+    returnType: {
+      cpp: "int",
+      java: "int",
+      python: "int",
+    },
+
+    parameters: {
+      cpp: [{ name: "n", type: "int" }],
+      java: [{ name: "n", type: "int" }],
+      python: [{ name: "n", type: "int" }],
+    },
+
+    examples: [
+      {
+        input: "n = 10",
+        output: "12",
+        explanation:
+          "The first 10 ugly numbers are 1, 2, 3, 4, 5, 6, 8, 9, 10, and 12. Therefore, the 10th ugly number is 12.",
+      },
+      {
+        input: "n = 1",
+        output: "1",
+        explanation: "1 is considered an ugly number.",
+      },
+      {
+        input: "n = 15",
+        output: "24",
+        explanation: "The 15th ugly number is 24.",
+      },
+    ],
+
+    constraints: `
+1 <= n <= 1690
+`,
+
+    starterCode: {
+      cpp: `class Solution {
+public:
+    int nthUglyNumber(int n) {
+
+    }
+};`,
+
+      java: `class Solution {
+public int nthUglyNumber(int n) {
+
+}
+}`,
+
+      python: `class Solution:
+    def nthUglyNumber(self, n):
+        pass`,
+    },
+
+    testCases: [
+      {
+        input: {
+          n: 10,
+        },
+        output: 12,
+      },
+    ],
+
+    hiddenTestCases: [
+      {
+        input: {
+          n: 1,
+        },
+        output: 1,
+      },
+      {
+        input: {
+          n: 15,
+        },
+        output: 24,
+      },
+      {
+        input: {
+          n: 20,
+        },
+        output: 36,
+      },
+      {
+        input: {
+          n: 100,
+        },
+        output: 1536,
+      },
+      {
+        input: {
+          n: 1690,
+        },
+        output: 2123366400,
+      },
+    ],
+  },
 ];
 
 export default heap;
