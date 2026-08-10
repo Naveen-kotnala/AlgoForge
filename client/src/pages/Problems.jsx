@@ -6,29 +6,23 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Problems() {
   const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
-
   const [difficulty, setDifficulty] = useState("All");
-
   const [topic, setTopic] = useState("All");
-
   const [problems, setProblems] = useState([]);
-
   const [solvedProblems, setSolvedProblems] = useState([]);
-
   const [showAllTopics, setShowAllTopics] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch Problems
-
         const res = await axios.get("http://localhost:5000/api/problems");
 
         setProblems(res.data);
 
         // Fetch Solved Problems
-
         const token = localStorage.getItem("token");
 
         if (token) {
@@ -43,7 +37,7 @@ function Problems() {
 
           setSolvedProblems(solved.data);
 
-          console.log("Solved:", solvedProblems);
+          console.log("Solved:", solved.data);
         }
       } catch (error) {
         console.log(error);
@@ -74,14 +68,15 @@ function Problems() {
   });
 
   return (
-    <div className="bg-slate-950 min-h-screen text-white">
+    <div className="min-h-screen bg-slate-950 text-white">
       <Navbar />
 
-      <section className="pt-32 px-8">
+      <section className="pt-28 sm:pt-32 px-4 sm:px-6 lg:px-8 pb-10">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl font-bold">Problems</h1>
+          {/* TITLE */}
+          <h1 className="text-4xl sm:text-5xl font-bold">Problems</h1>
 
-          <p className="text-gray-400 mt-3">
+          <p className="text-gray-400 mt-3 text-sm sm:text-base">
             Practice coding problems and improve your DSA skills.
           </p>
 
@@ -89,33 +84,30 @@ function Problems() {
             Total Problems: {problems.length}
           </p>
 
-          {/* Search */}
-
-          <div className="mt-10">
+          {/* SEARCH */}
+          <div className="mt-8 sm:mt-10">
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search problems..."
               className="
-            w-full
-            bg-slate-900
-            border
-            border-slate-800
-            rounded-xl
-            px-5
-            py-4
-            outline-none
-            focus:border-purple-500
-            "
+                w-full
+                bg-slate-900
+                border
+                border-slate-800
+                rounded-xl
+                px-4 sm:px-5
+                py-3 sm:py-4
+                outline-none
+                focus:border-purple-500
+                text-sm sm:text-base
+              "
             />
           </div>
 
-          {/* Difficulty */}
-
-          {/* Filters */}
-
-          <div className="mt-6 space-y-4">
-            {/* Difficulty */}
+          {/* FILTERS */}
+          <div className="mt-6 space-y-5">
+            {/* DIFFICULTY */}
             <div className="flex items-center gap-3 flex-wrap">
               <span className="text-gray-400 font-medium">Difficulty:</span>
 
@@ -123,19 +115,25 @@ function Problems() {
                 <button
                   key={level}
                   onClick={() => setDifficulty(level)}
-                  className={`px-4 py-2 rounded-full text-sm transition
-        ${
-          difficulty === level
-            ? "bg-purple-600 text-white"
-            : "bg-slate-900 border border-slate-700 hover:bg-slate-800"
-        }`}
+                  className={`
+                      px-4
+                      py-2
+                      rounded-full
+                      text-sm
+                      transition
+                      ${
+                        difficulty === level
+                          ? "bg-purple-600 text-white"
+                          : "bg-slate-900 border border-slate-700 hover:bg-slate-800"
+                      }
+                    `}
                 >
                   {level}
                 </button>
               ))}
             </div>
 
-            {/* Topics */}
+            {/* TOPICS */}
             <div className="mt-5">
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-gray-400 font-medium">Topics:</span>
@@ -144,12 +142,18 @@ function Problems() {
                   <button
                     key={tag}
                     onClick={() => setTopic(tag)}
-                    className={`px-4 py-2 rounded-full text-sm transition
-        ${
-          topic === tag
-            ? "bg-green-600 text-white"
-            : "bg-slate-900 border border-slate-700 hover:bg-slate-800"
-        }`}
+                    className={`
+                      px-4
+                      py-2
+                      rounded-full
+                      text-sm
+                      transition
+                      ${
+                        topic === tag
+                          ? "bg-green-600 text-white"
+                          : "bg-slate-900 border border-slate-700 hover:bg-slate-800"
+                      }
+                    `}
                   >
                     {tag}
                   </button>
@@ -158,7 +162,15 @@ function Problems() {
                 {topics.length > 7 && (
                   <button
                     onClick={() => setShowAllTopics(!showAllTopics)}
-                    className="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 hover:bg-slate-700"
+                    className="
+                      px-4
+                      py-2
+                      rounded-full
+                      bg-slate-800
+                      border
+                      border-slate-700
+                      hover:bg-slate-700
+                    "
                   >
                     {showAllTopics ? "▲ Less" : "▼ More"}
                   </button>
@@ -167,54 +179,69 @@ function Problems() {
             </div>
           </div>
 
-          {/* Problems */}
-
+          {/* PROBLEMS */}
           <div
             className="
-          mt-10
-          bg-slate-900
-          rounded-2xl
-          border
-          border-slate-800
-          overflow-hidden
-          "
+              mt-8 sm:mt-10
+              bg-slate-900
+              rounded-2xl
+              border
+              border-slate-800
+              overflow-hidden
+            "
           >
-            {filteredProblems.map((problem, index) => (
+            {filteredProblems.map((problem) => (
               <div
                 key={problem._id}
                 onClick={() => navigate(`/problems/${problem._id}`)}
                 className="
-              flex
-              justify-between
-              items-center
-              p-6
-              border-b
-              border-slate-800
-              hover:bg-slate-800
-              transition
-              cursor-pointer
-              "
+                  flex
+                  flex-col
+                  sm:flex-row
+                  justify-between
+                  sm:items-center
+                  gap-5
+                  p-4 sm:p-6
+                  border-b
+                  border-slate-800
+                  hover:bg-slate-800
+                  transition
+                  cursor-pointer
+                "
               >
-                <div>
-                  <div className="flex items-center gap-3">
+                {/* LEFT SIDE */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start gap-2 sm:gap-3">
                     {solvedProblems.includes(problem._id) && (
-                      <span className="text-green-400 text-xl">✅</span>
+                      <span className="text-green-400 text-xl shrink-0">
+                        ✅
+                      </span>
                     )}
 
-                    <span className="text-gray-500 font-medium">
+                    <span className="text-gray-500 font-medium shrink-0">
                       {problem.problemNumber}.
                     </span>
 
-                    <div className="flex items-center gap-3">
-                      <h2 className="text-xl font-semibold">{problem.title}</h2>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <h2
+                        className="
+                        text-lg
+                        sm:text-xl
+                        font-semibold
+                        wrap-break-word
+                      "
+                      >
+                        {problem.title}
+                      </h2>
 
                       {solvedProblems.includes(problem._id) && (
                         <span
                           className="
-                       text-green-400
-                         text-xl
-                         font-bold
-                        "
+                            text-green-400
+                            text-xl
+                            font-bold
+                            shrink-0
+                          "
                         >
                           ✓
                         </span>
@@ -222,18 +249,27 @@ function Problems() {
                     </div>
                   </div>
 
-                  <div className="flex gap-2 mt-3">
+                  {/* TAGS */}
+                  <div
+                    className="
+                    flex
+                    flex-wrap
+                    gap-2
+                    mt-3
+                    pl-0
+                  "
+                  >
                     {problem.tags?.map((tag, index) => (
                       <span
                         key={index}
                         className="
-                      bg-slate-800
-                      text-gray-300
-                      px-3
-                      py-1
-                      rounded-full
-                      text-sm
-                      "
+                          bg-slate-800
+                          text-gray-300
+                          px-3
+                          py-1
+                          rounded-full
+                          text-sm
+                        "
                       >
                         {tag}
                       </span>
@@ -241,23 +277,33 @@ function Problems() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-5">
+                {/* RIGHT SIDE */}
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                    sm:justify-end
+                    gap-4 sm:gap-5
+                    w-full
+                    sm:w-auto
+                    shrink-0
+                  "
+                >
                   <span
                     className={`
-                  px-4
-                  py-1
-                  rounded-full
-                  text-sm
-
-                  ${
-                    problem.difficulty === "Easy"
-                      ? "bg-green-500/20 text-green-400"
-                      : problem.difficulty === "Medium"
-                        ? "bg-yellow-500/20 text-yellow-400"
-                        : "bg-red-500/20 text-red-400"
-                  }
-
-                  `}
+                      px-4
+                      py-1
+                      rounded-full
+                      text-sm
+                      ${
+                        problem.difficulty === "Easy"
+                          ? "bg-green-500/20 text-green-400"
+                          : problem.difficulty === "Medium"
+                            ? "bg-yellow-500/20 text-yellow-400"
+                            : "bg-red-500/20 text-red-400"
+                      }
+                    `}
                   >
                     {problem.difficulty}
                   </span>
@@ -266,18 +312,33 @@ function Problems() {
                     to={`/problems/${problem._id}`}
                     onClick={(e) => e.stopPropagation()}
                     className="
-                  bg-purple-600
-                  px-5
-                  py-2
-                  rounded-lg
-                  hover:bg-purple-700
-                  "
+                      bg-purple-600
+                      px-5
+                      py-2
+                      rounded-lg
+                      hover:bg-purple-700
+                      transition
+                      shrink-0
+                    "
                   >
                     Solve
                   </Link>
                 </div>
               </div>
             ))}
+
+            {/* NO RESULTS */}
+            {filteredProblems.length === 0 && (
+              <div
+                className="
+                py-16
+                text-center
+                text-gray-400
+              "
+              >
+                No problems found.
+              </div>
+            )}
           </div>
         </div>
       </section>
