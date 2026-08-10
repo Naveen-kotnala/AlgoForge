@@ -165,7 +165,7 @@ border-slate-700
 text-sm
 "
             >
-              🔥 170+ Problems
+              🔥 200+ Problems
             </span>
 
             <span

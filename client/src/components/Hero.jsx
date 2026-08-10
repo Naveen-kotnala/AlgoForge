@@ -6,7 +6,7 @@ function Hero() {
       {/* Background Glow */}
       <div className="absolute -top-40 -left-32 w-96 h-96 bg-purple-600/20 blur-3xl rounded-full" />
 
-      <div className="absolute top-40 -right-20 w-[500px] h-[500px] bg-cyan-500/10 blur-3xl rounded-full" />
+      <div className="absolute top-40 -right-20 w-125 h-125 bg-cyan-500/10 blur-3xl rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-28 lg:pt-36 pb-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -73,8 +73,6 @@ function Hero() {
               <span>✓ Progress Tracking</span>
             </div>
           </div>
-
-          {/* RIGHT CODE CARD */}
 
           {/* RIGHT CODE CARD */}
 

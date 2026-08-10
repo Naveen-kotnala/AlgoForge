@@ -8,6 +8,7 @@ import {
 import { executeCode } from "../services/executionService.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import Submission from "../models/Submission.js";
+import User from "../models/User.js";
 import express from "express";
 
 function normalizeOutput(value) {
@@ -38,13 +39,6 @@ router.post("/run", async (req, res) => {
 
     // First visible testcase
     const testCase = problem.testCases[0];
-
-    // Wrapper generate
-    // const wrapperCode = generateCppWrapper(
-    //   code,
-    //   problem.functionName,
-    //   testCase,
-    // );
 
     let wrapperCode;
 
@@ -130,12 +124,6 @@ router.post("/submit", authMiddleware, async (req, res) => {
     let finalStatus = "Accepted ";
 
     for (const testCase of problem.hiddenTestCases) {
-      // Generate Wrapper
-      // const wrapperCode = generateCppWrapper(
-      //   code,
-      //   problem.functionName,
-      //   testCase,
-      // );
       let wrapperCode;
 
       if (language === "cpp") {
@@ -202,17 +190,33 @@ router.post("/submit", authMiddleware, async (req, res) => {
 
     // Save Submission
 
+    // Check if problem was already solved
+    const alreadySolved = await Submission.findOne({
+      userId: req.user.id,
+      problemId,
+      status: "Accepted",
+    });
+
+    // Save Submission
     const submission = await Submission.create({
       userId: req.user.id,
-
       problemId,
-
       code,
-
       language,
-
       status: finalStatus,
     });
+
+    // Update leaderboard only for first accepted submission
+    if (finalStatus.trim() === "Accepted" && !alreadySolved) {
+      await User.findByIdAndUpdate(req.user.id, {
+        $inc: {
+          solved: 1,
+          xp: 10,
+        },
+      });
+
+      console.log("Leaderboard updated ✅");
+    }
 
     console.log("SAVED:", submission);
 

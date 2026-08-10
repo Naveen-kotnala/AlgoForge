@@ -4,7 +4,7 @@ function Stats() {
   const stats = [
     {
       icon: <Code2 />,
-      number: "20K+",
+      number: "200+",
       title: "Coding Problems",
       desc: "Curated DSA & interview questions",
     },

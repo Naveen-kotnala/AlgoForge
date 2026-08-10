@@ -576,7 +576,9 @@ function CodeEditor() {
                               text-xl
                               font-bold
                               ${
-                                runStatus.trim() === "Accepted"
+                                ["Accepted", "Passed"].includes(
+                                  runStatus.trim(),
+                                )
                                   ? "text-green-400"
                                   : "text-red-400"
                               }

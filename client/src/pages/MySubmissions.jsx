@@ -306,7 +306,7 @@ function MySubmissions() {
                       text-sm
                       mt-3
                       md:mt-4
-                      wrap-break-word
+                      
                     "
                   >
                     {new Date(sub.createdAt).toLocaleString()}
