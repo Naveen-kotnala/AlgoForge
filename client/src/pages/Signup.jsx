@@ -67,7 +67,7 @@ function Signup() {
           className="w-full p-3 rounded bg-slate-800 text-white mb-6"
         />
 
-        <button className="w-full bg-purple-600 py-3 rounded text-white font-semibold">
+        <button className="w-full bg-purple-600 py-3 rounded text-white font-semibold ">
           Sign Up
         </button>
 

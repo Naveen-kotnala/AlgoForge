@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const user = JSON.parse(localStorage.getItem("user"));
-
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-
-  window.location.href = "/login";
-};
-
 function Navbar() {
   const [openProfile, setOpenProfile] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isLoggedIn = !!localStorage.getItem("token");
+
   const closeMobileMenu = () => {
     setOpenMenu(false);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    window.location.href = "/";
+  };
+
+  const userInitial = user?.name?.charAt(0).toUpperCase() || "";
 
   return (
     <nav
@@ -33,8 +36,8 @@ function Navbar() {
           px-4 sm:px-6 lg:px-8
         "
       >
-        {/* MAIN NAVBAR */}
         <div className="h-20 flex items-center justify-between">
+
           {/* LOGO */}
           <Link
             to="/"
@@ -131,7 +134,8 @@ function Navbar() {
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
-            {/* HAMBURGER - MOBILE ONLY */}
+
+            {/* MOBILE MENU */}
             <button
               onClick={() => setOpenMenu(!openMenu)}
               className="
@@ -146,183 +150,169 @@ function Navbar() {
                 transition
                 flex items-center justify-center
               "
-              aria-label="Toggle menu"
             >
-              {openMenu ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              {openMenu ? "✕" : "☰"}
             </button>
 
-            {/* PROFILE - ALWAYS VISIBLE */}
-            <div className="relative">
-              <button
-                onClick={() => setOpenProfile(!openProfile)}
-                className="
-                  w-10 h-10 sm:w-11 sm:h-11
-                  rounded-full
-                  bg-linear-to-br
-                  from-purple-600
-                  to-cyan-400
-                  flex items-center justify-center
-                  text-white
-                  font-bold
-                  text-lg
-                  hover:scale-105
-                  transition
-                  shadow-lg
-                  shadow-purple-500/20
-                "
-              >
-                N
-              </button>
-
-              {/* PROFILE DROPDOWN */}
-              {openProfile && (
-                <div
+            {/* GUEST */}
+            {!isLoggedIn ? (
+              <div className="flex items-center gap-3">
+                <Link
+                  to="/login"
                   className="
-                    absolute
-                    right-0
-                    top-14
-                    w-60
-                    bg-slate-900
-                    border border-slate-800
-                    rounded-2xl
-                    shadow-2xl
-                    overflow-hidden
-                    z-50
+                    px-4 py-2
+                    text-gray-300
+                    hover:text-white
+                    transition
                   "
                 >
-                  {/* USER INFO */}
-                  <div className="px-5 py-4 border-b border-slate-800">
-                    <p className="text-white font-semibold">Naveen</p>
+                  Login
+                </Link>
 
-                    <p className="text-sm text-gray-400">Developer</p>
-                  </div>
+      <Link
+  to="/signup"
+  className="px-4 py-2 text-gray-300 hover:text-white transition"
+>
+  Sign Up
+</Link>
+              </div>
+            ) : (
+              /* LOGGED IN */
+              <div className="relative">
+                <button
+                  onClick={() => setOpenProfile(!openProfile)}
+                  className="
+                    w-10 h-10 sm:w-11 sm:h-11
+                    rounded-full
+                    bg-linear-to-br
+                    from-purple-600
+                    to-cyan-400
+                    flex items-center justify-center
+                    text-white
+                    font-bold
+                    text-lg
+                    hover:scale-105
+                    transition
+                    shadow-lg
+                    shadow-purple-500/20
+                  "
+                >
+                  {userInitial}
+                </button>
 
-                  <Link
-                    to="/profile"
-                    onClick={() => setOpenProfile(false)}
+                {/* PROFILE DROPDOWN */}
+                {openProfile && (
+                  <div
                     className="
-                      block px-5 py-3
-                      text-gray-300
-                      hover:bg-slate-800
-                      hover:text-white
-                      transition
+                      absolute
+                      right-0
+                      top-14
+                      w-60
+                      bg-slate-900
+                      border border-slate-800
+                      rounded-2xl
+                      shadow-2xl
+                      overflow-hidden
+                      z-50
                     "
                   >
-                    👤 Profile
-                  </Link>
+                    {/* USER INFO */}
+                    <div className="px-5 py-4 border-b border-slate-800">
+                      <p className="text-white font-semibold">
+                        {user?.name}
+                      </p>
 
-                  <Link
-                    to="/submissions"
-                    onClick={() => setOpenProfile(false)}
-                    className="
-                      block px-5 py-3
-                      text-gray-300
-                      hover:bg-slate-800
-                      hover:text-white
-                      transition
-                    "
-                  >
-                    📝 My Submissions
-                  </Link>
+                      <p className="text-sm text-gray-400">
+                        {user?.role === "admin" ? "Admin" : "Developer"}
+                      </p>
+                    </div>
 
-                  {user?.role === "admin" && (
                     <Link
-                      to="/admin"
+                      to="/profile"
                       onClick={() => setOpenProfile(false)}
                       className="
                         block px-5 py-3
-                        text-purple-400
+                        text-gray-300
+                        hover:bg-slate-800
+                        hover:text-white
+                        transition
+                      "
+                    >
+                      👤 Profile
+                    </Link>
+
+                    <Link
+                      to="/submissions"
+                      onClick={() => setOpenProfile(false)}
+                      className="
+                        block px-5 py-3
+                        text-gray-300
+                        hover:bg-slate-800
+                        hover:text-white
+                        transition
+                      "
+                    >
+                      📝 My Submissions
+                    </Link>
+
+                    {user?.role === "admin" && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setOpenProfile(false)}
+                        className="
+                          block px-5 py-3
+                          text-purple-400
+                          hover:bg-slate-800
+                          transition
+                        "
+                      >
+                        ⚡ Admin Dashboard
+                      </Link>
+                    )}
+
+                    <Link
+                      to="/settings"
+                      onClick={() => setOpenProfile(false)}
+                      className="
+                        block px-5 py-3
+                        text-gray-300
+                        hover:bg-slate-800
+                        hover:text-white
+                        transition
+                      "
+                    >
+                      ⚙ Settings
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="
+                        w-full
+                        text-left
+                        px-5 py-3
+                        text-red-400
                         hover:bg-slate-800
                         transition
                       "
                     >
-                      ⚡ Admin Dashboard
-                    </Link>
-                  )}
-
-                  <Link
-                    to="/settings"
-                    onClick={() => setOpenProfile(false)}
-                    className="
-                      block px-5 py-3
-                      text-gray-300
-                      hover:bg-slate-800
-                      hover:text-white
-                      transition
-                    "
-                  >
-                    ⚙ Settings
-                  </Link>
-
-                  <button
-                    onClick={handleLogout}
-                    className="
-                      w-full
-                      text-left
-                      px-5 py-3
-                      text-red-400
-                      hover:bg-slate-800
-                      transition
-                    "
-                  >
-                    🚪 Logout
-                  </button>
-                </div>
-              )}
-            </div>
+                      🚪 Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
         {/* MOBILE MENU */}
         {openMenu && (
-          <div
-            className="
-              md:hidden
-              border-t border-slate-800
-              py-4
-            "
-          >
+          <div className="md:hidden border-t border-slate-800 py-4">
             <div className="flex flex-col gap-1">
+
               <NavLink
                 to="/"
                 onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-xl transition ${
-                    isActive
-                      ? "bg-purple-500/10 text-purple-400 font-semibold"
-                      : "text-gray-300 hover:bg-slate-900 hover:text-white"
-                  }`
-                }
+                className="px-4 py-3 rounded-xl text-gray-300 hover:bg-slate-900 hover:text-white"
               >
                 Home
               </NavLink>
@@ -330,13 +320,7 @@ function Navbar() {
               <NavLink
                 to="/problems"
                 onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-xl transition ${
-                    isActive
-                      ? "bg-purple-500/10 text-purple-400 font-semibold"
-                      : "text-gray-300 hover:bg-slate-900 hover:text-white"
-                  }`
-                }
+                className="px-4 py-3 rounded-xl text-gray-300 hover:bg-slate-900 hover:text-white"
               >
                 Problems
               </NavLink>
@@ -344,13 +328,7 @@ function Navbar() {
               <NavLink
                 to="/leaderboard"
                 onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-xl transition ${
-                    isActive
-                      ? "bg-purple-500/10 text-purple-400 font-semibold"
-                      : "text-gray-300 hover:bg-slate-900 hover:text-white"
-                  }`
-                }
+                className="px-4 py-3 rounded-xl text-gray-300 hover:bg-slate-900 hover:text-white"
               >
                 Leaderboard
               </NavLink>
@@ -358,16 +336,30 @@ function Navbar() {
               <NavLink
                 to="/discuss"
                 onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-xl transition ${
-                    isActive
-                      ? "bg-purple-500/10 text-purple-400 font-semibold"
-                      : "text-gray-300 hover:bg-slate-900 hover:text-white"
-                  }`
-                }
+                className="px-4 py-3 rounded-xl text-gray-300 hover:bg-slate-900 hover:text-white"
               >
                 Discuss
               </NavLink>
+
+              {!isLoggedIn && (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={closeMobileMenu}
+                    className="px-4 py-3 rounded-xl text-gray-300 hover:bg-slate-900 hover:text-white"
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    to="/signup"
+                    onClick={closeMobileMenu}
+                    className="px-4 py-3 rounded-xl text-purple-400 hover:bg-slate-900"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
